@@ -1,7 +1,7 @@
 # NTU_coconut_defenser
-This is the github repository for our project
+This is the github repository for our project.  
 To learn how to install and setup this file please look at the websites below.
-https://books.bod.idv.tw/2019/10/visual-studio-code-vs-code-git.html
+https://books.bod.idv.tw/2019/10/visual-studio-code-vs-code-git.html  
 https://hackmd.io/@howhow/git_with_vscode#git-with-vscode
 
 For video tutorial, Please look at:
