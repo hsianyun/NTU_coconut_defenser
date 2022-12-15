@@ -16,7 +16,7 @@ def __str__(self):
 
 '''
 
-
+# 看看
 class Attacker:
     def __init__(self):
         self.damage = 0
