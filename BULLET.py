@@ -14,38 +14,23 @@ class Bullet():
         self.range = range
         self.speed = speed
 
-class HSBul(Bullet):            #香水椰子彈 HsiangShui
+class SBul(Bullet):            #砂糖椰子彈 Sugar
     def __init__(self):
-        super().__init__()
-        self.damage = 10
-        self.range = 1
-        self.speed = 10
+        super().__init__(4,1,10)
 class JPBul(Bullet):            #酒瓶椰子彈 JiuPing
     def __init__(self):
-        super().__init__()
-        self.damage = 5
-        self.range = 1
-        self.speed = 10
+        super().__init__(2,1,10)
 class GoldenBul(Bullet):            #黃金椰子彈 Golden
     def __init__(self):
-        super().__init__()
-        self.damage = 20
-        self.range = 2
-        self.speed = 10
+        super().__init__(10,1,10)
 class KingBul(Bullet):          #大王椰子彈 King
     def __init__(self):
-        super().__init__()
-        self.damage = 40
-        self.range = 10
-        self.speed = 10
+        super().__init__(25,10,10)
     def explode(self,Attacker):
         pass
 class IceBul(Bullet):            #杜老爺子彈 Icecream
     def __init__(self,freezing):
-        super().__init__()
-        self.damage = 1
-        self.range = 1
-        self.speed = 10
+        super().__init__(1,1,10)
         self.freezing = freezing
     def freeze(self,Attacker):
         Attacker.speed -= self.freezing
