@@ -23,7 +23,7 @@ class Attacker:
 
     # 受到攻擊扣血的機制並偵測是否死亡
     def getdamage(self,damage):
-        self.damage += damege
+        self.damage += damage
         if self.damage >= self.ini_blood:
             print("GG") # 死亡
             attackers.remove(self)

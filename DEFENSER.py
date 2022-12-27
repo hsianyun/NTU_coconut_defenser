@@ -1,6 +1,7 @@
 '''
 顯示圖片
 發射子彈
+碰撞偵測
 範圍傷害
 '''
 
@@ -35,6 +36,7 @@ class Defenser:
         if len(attacker_closest) > 0:
             target = attacker_closest[0]
             #朝目標發射子彈
+            #碰撞偵測
             
 
 
