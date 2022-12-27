@@ -16,7 +16,7 @@ def __str__(self):
 
 '''
 
-# 看看拉拉拉
+
 class Attacker:
     def __init__(self):
         self.damage = 0
@@ -26,6 +26,8 @@ class Attacker:
         self.damage += xxx
         if self.damage >= self.ini_blood:
             print("GG")  # 死亡
+
+    # 移動路徑
 
     # 血量歸零時死亡的機制
 
