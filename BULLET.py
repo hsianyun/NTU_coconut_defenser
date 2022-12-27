@@ -14,10 +14,10 @@ class Bullet():
         self.range = range
         self.speed = speed
 
-class SBul(Bullet):            #砂糖椰子彈 Sugar
+class SugarBul(Bullet):            #砂糖椰子彈 Sugar
     def __init__(self):
         super().__init__(4,1,10)
-class JPBul(Bullet):            #酒瓶椰子彈 JiuPing
+class WinebottleBul(Bullet):            #酒瓶椰子彈 Winebottle
     def __init__(self):
         super().__init__(2,1,10)
 class GoldenBul(Bullet):            #黃金椰子彈 Golden

@@ -38,8 +38,3 @@ class Ice(Defenser):
         self.rate_of_fire = 20
         self.range = 0
         self.price = 60
-
-
-
-
-
