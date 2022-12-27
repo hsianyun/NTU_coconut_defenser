@@ -11,7 +11,7 @@ class Suger(Defenser):
         self.range = 0
         self.price = 25
 
-class JP(Defenser):
+class Winebottle(Defenser):
     def __init__(self):
         super().__init__()
         self.rate_of_fire = 25
