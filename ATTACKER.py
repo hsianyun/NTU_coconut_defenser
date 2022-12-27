@@ -22,10 +22,13 @@ class Attacker:
         self.damage = 0
 
     # 受到攻擊扣血的機制並偵測是否死亡
-    def getdamage(self,xxx):
-        self.damage += xxx
+    def getdamage(self,damage):
+        self.damage += damege
         if self.damage >= self.ini_blood:
-            print("GG")  # 死亡
+            print("GG") # 死亡
+            attackers.remove(self)
+        if damage == 1:
+            pass       #緩速
 
     # 移動路徑
 
@@ -33,7 +36,9 @@ class Attacker:
 
     # 救護車補血的機制
 
-    # 被下雨打到減速的機制
+    # 被杜老椰打到減速的機制
+    def freeze(self):
+
 
 class Pedestrian(Attacker):
     def __init__(self):
