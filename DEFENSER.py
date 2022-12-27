@@ -4,8 +4,6 @@
 範圍傷害
 '''
 
-
-
 import pygame
 import math
 

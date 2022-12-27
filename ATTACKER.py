@@ -36,9 +36,6 @@ class Attacker:
 
     # 救護車補血的機制
 
-    # 被杜老椰打到減速的機制
-    def freeze(self):
-
 
 class Pedestrian(Attacker):
     def __init__(self):
