@@ -3,9 +3,9 @@ import pygame
 import os
 pygame.font.init()
 
-start_btn = pygame.image.load(os.path.join('game_assets', 'button_play.png')).convert_alpha()
-mode_PvE_btn = pygame.image.load(os.path.join('game_assets', '')).convert_alpha()   #needed to fill in the picture
-mode_PvP_btn = pygame.image.load(os.path.join('game_assets', '')).convert_alpha()   #needed to fill in the picture
+start_btn = pygame.image.load(os.path.join('game_assets', 'start_btn.png')).convert_alpha()
+mode_PvE_btn = pygame.image.load(os.path.join('game_assets', 'PvE_btn.png')).convert_alpha()   #needed to fill in the picture
+mode_PvP_btn = pygame.image.load(os.path.join('game_assets', 'PvP_btn.png')).convert_alpha()   #needed to fill in the picture
 
 class MainMenu:
     def __init__(self, win):
@@ -36,9 +36,10 @@ class MainMenu:
                     #check if hit the buttons
                     if self.btn_start[0] <= x <= self.btn_start[0] + self.btn_start[2]:
                         if self.btn_start[1] <= y <= self.btn_start[1] + self.btn_start[3]:
-                            game = Game(self.win, self.mode)    #init game object
-                            game.run()      #run the game
-                            del game        #After leaving the game, del the game object
+                            # game = Game(self.win, self.mode)    #init game object
+                            # game.run()      #run the game
+                            # del game        #After leaving the game, del the game object
+                            pass
                     
                     if self.btn_PvE[0] <= x <= self.btn_PvE[0] + self.btn_PvE[2]:
                         if self.btn_PvE[1] <= y <= self.btn_PvE[1] + self.btn_PvE[3]:
