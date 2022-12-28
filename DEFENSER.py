@@ -27,7 +27,7 @@ class Defenser:
             x = attacker.x
             y = attacker.y
             dis = math.sqrt((self.x - attacker.img.get_width()/2 - x)**2 + (self.y - attacker.img.get_height()/2 - y)**2)
-            if dis < self.range:
+            if dis < self.range: #是否在攻擊範圍內
                 self.inRange = True
                 attacker_closest.append(attacker)
 

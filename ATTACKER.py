@@ -22,8 +22,8 @@ class Attacker:
         self.damage += damage
         if self.damage >= self.ini_blood:
             print("GG") # 死亡
-            attackers.remove(self)
-        if damage == 1:
+            attackers.remove(self) #attackers是一個包括所有活著的attacker的list
+        if damage == 1: #杜老椰攻擊力1
             pass       #緩速
 
     # 移動路徑
