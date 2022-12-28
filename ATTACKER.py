@@ -16,8 +16,8 @@ import os
 class Attacker:
     def __init__(self):
         self.damage = 0
-        self.width = ##
-        self.height = ##
+        self.width = 0 ##待改
+        self.height = 0 ##待改
         self.path = [(0,500),(220,500),(220,100),(420,100),(420,260),(740,260),(740,100),(1020,100),(1020,380),(420,380),(420,500),(1200,500)]
         self.path_count = 0
         self.direction = ["R","U","R","D","R","U","R","D","L","D","R"]
@@ -28,7 +28,7 @@ class Attacker:
 
     # 畫圖
     def draw(self,win):
-        self.img = ##
+        self.img = 0 ##待改
         win.blit(self.img,(self.x - self.img.get_width()/2, self.y- self.img.get_height()/2))
     
     # 移動路徑
@@ -117,5 +117,3 @@ class Student_Association(Attacker):
         self.ini_blood = 20
         self.power = 1
         self.speed = 2
-
-
