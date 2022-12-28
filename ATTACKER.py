@@ -41,7 +41,6 @@ class Attacker:
             pass       #停30clk
 
 
-    # 血量歸零時死亡的機制
 
     # 救護車補血的機制
 
