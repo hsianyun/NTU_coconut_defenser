@@ -33,7 +33,6 @@ class Attacker:
     
     # 移動
     def move(self):
-        print("HH")
         if self.direction[self.direction_count] == "R":
             self.x += self.speed
         elif self.direction[self.direction_count] == "U":
