@@ -31,8 +31,9 @@ class Attacker:
         self.img = 0 ##待改
         win.blit(self.img,(self.x - self.img.get_width()/2, self.y- self.img.get_height()/2))
     
-    # 移動路徑
+    # 移動
     def move(self):
+        print("HH")
         if self.direction[self.direction_count] == "R":
             self.x += self.speed
         elif self.direction[self.direction_count] == "U":
@@ -117,3 +118,4 @@ class Student_Association(Attacker):
         self.ini_blood = 20
         self.power = 1
         self.speed = 2
+
