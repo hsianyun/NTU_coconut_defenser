@@ -9,12 +9,8 @@
 特殊能力
 '''
 
-'''
-test
-def __str__(self):
-    return f"price{self.price}\ndamage{self.damage}"
-
-'''
+import pygame
+import os
 
 
 class Attacker:
