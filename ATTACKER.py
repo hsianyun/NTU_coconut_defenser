@@ -18,7 +18,10 @@ class Attacker:
         self.damage = 0
         self.width = ##
         self.height = ##
-        self.path = ##
+        self.path = [(0,500),(220,500),(220,100),(420,100),(420,260),(740,260),(740,100),(1020,100),(1020,380),(420,380),(420,500),(1200,500)]
+        self.path_count = 0
+        self.direction = ["R","U","R","D","R","U","R","D","L","D","R"]
+        self.direction_count = 0
         self.x = self.path[0][0]
         self.y = self.path[0][1]
 
@@ -30,13 +33,26 @@ class Attacker:
     
     # 移動路徑
     def move(self):
+        if self.direction[self.direction_count] == "R":
+            self.x += self.speed
+        elif self.direction[self.direction_count] == "U":
+            self.y += self.speed
+        elif self.direction[self.direction_count] == "L":
+            self.x -= self.speed
+        elif self.direction[self.direction_count] == "D":
+            self.y -= self.speed
+        
+        if self.x == self.path[self.path_count + 1][0] and self.y == self.path[self.path_count + 1][1]:
+            self.path_count += 1
+            self.direction_count += 1
+        
+         
 
     # 受到攻擊扣血的機制並偵測是否死亡
     def hit(self,damage):
         self.damage += damage
         if self.damage >= self.ini_blood:
-            print("GG") # 死亡
-            attackers.remove(self) #attackers是一個包括所有活著的attacker的list
+            attackers.remove(self) # attackers是一個包括所有活著的attacker的list # 死亡
         if damage == 1: #杜老椰攻擊力1
             pass       #停30clk
 
