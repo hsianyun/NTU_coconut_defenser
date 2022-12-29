@@ -1,6 +1,5 @@
 '''
 顯示圖片
-範圍傷害
 '''
 
 import pygame
@@ -19,7 +18,6 @@ class Defenser:
         pass 
 
     def attack(self, attackers,tick):
-        attacker_closest = []
         target_dis = 10000000
         if tick % 60//self.rate_of_fire == 0:
             for attacker in attackers:    #攻擊目標判定
