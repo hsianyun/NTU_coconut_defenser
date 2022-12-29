@@ -51,7 +51,14 @@ class Attacker:
             self.path_count += 1
             self.direction_count += 1
         
-         
+    # 血量條
+    def draw_health_bar(self, win):
+        length = 50
+        move_by = length / self.max_health
+        health_bar = round(move_by * self.health)
+
+        pygame.draw.rect(win, (255,0,0), (self.x-30, self.y-75, length, 10), 0)
+        pygame.draw.rect(win, (0, 255, 0), (self.x-30, self.y - 75, health_bar, 10), 0)
 
     # 受到攻擊扣血的機制並偵測是否死亡
     def hit(self,damage,attackers):
@@ -62,8 +69,10 @@ class Attacker:
             self.ice_count = 0       #停30clk
 
 
-
     # 救護車補血的機制
+    def cure(self,):
+        pass
+
 
 
 class Pedestrian(Attacker):
@@ -83,6 +92,7 @@ class Bicycle(Attacker):
         self.power = 2
         self.speed = 2
 
+
 class Skateboard(Attacker):
     def __init__(self):
         super().__init__()
@@ -90,6 +100,7 @@ class Skateboard(Attacker):
         self.ini_blood = 10
         self.power = 1
         self.speed = 4
+
 
 class Car(Attacker):
     def __init__(self):
@@ -99,6 +110,7 @@ class Car(Attacker):
         self.power = 5
         self.speed = 2
 
+
 class Shui_yuan_car(Attacker):
     def __init__(self):
         super().__init__()
@@ -106,6 +118,10 @@ class Shui_yuan_car(Attacker):
         self.ini_blood = 100
         self.power = 8
         self.speed = 1
+
+    def special_ability(self):  # 特殊能力
+
+
 
 class Ambulance(Attacker):
     def __init__(self):
@@ -115,6 +131,7 @@ class Ambulance(Attacker):
         self.power = 8
         self.speed = 2
 
+
 class Student_Association(Attacker):
     def __init__(self):
         super().__init__()
@@ -122,7 +139,4 @@ class Student_Association(Attacker):
         self.ini_blood = 20
         self.power = 1
         self.speed = 2
-
-
-
 
