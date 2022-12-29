@@ -22,6 +22,7 @@ class Attacker:
         self.path_count = 0
         self.direction = ["R","U","R","D","R","U","R","D","L","D","R"]
         self.direction_count = 0
+        self.ice_count = -1
         self.x = self.path[0][0]
         self.y = self.path[0][1]
 
@@ -33,7 +34,11 @@ class Attacker:
     
     # 移動
     def move(self):
-        if self.direction[self.direction_count] == "R":
+        if self.ice_count >= 30:
+            self.ice_count = -1
+        elif self.ice_count >= 0:
+            self.ice_count += 1
+        elif self.direction[self.direction_count] == "R":
             self.x += self.speed
         elif self.direction[self.direction_count] == "U":
             self.y += self.speed
@@ -54,7 +59,7 @@ class Attacker:
         if self.damage >= self.ini_blood:
             attackers.remove(self) # attackers是一個包括所有活著的attacker的list # 死亡
         if damage == 1: #杜老椰攻擊力1
-            pass       #停30clk
+            self.ice_count = 0       #停30clk
 
 
 
