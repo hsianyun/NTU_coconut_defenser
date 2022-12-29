@@ -118,3 +118,6 @@ class Student_Association(Attacker):
         self.power = 1
         self.speed = 2
 
+
+
+
