@@ -7,14 +7,13 @@ import pygame
 import math
 
 class Defenser:
-    def __init__(self,x,y,price,rate,damage,Range,speed):
+    def __init__(self,x,y,price,rate,damage,Range):
         self.x = x
         self.y = y
         self.price = price
         self.rate_of_fire = rate
         self.damage = damage
         self.range = Range
-        self.bullet_speed = speed
 
     def draw(self):   #顯示圖片
         pass 
@@ -45,19 +44,19 @@ class Defenser:
 
 class Sugar(Defenser):      #砂糖椰
     def __init__(self,x,y):
-        super().__init__(x,y,25,10,4,120,1)
+        super().__init__(x,y,25,10,4,120)
 
 class Winebottle(Defenser):  #酒瓶椰
     def __init__(self):
-        super().__init__(x,y,30,30,2,100,1)
+        super().__init__(x,y,30,30,2,100)
 
 class Golden(Defenser):   #黃金椰
     def __init__(self):
-        super().__init__(x,y,80,15,10,180,1)
+        super().__init__(x,y,80,15,10,180)
 
 class King(Defenser):     #大王椰
     def __init__(self):
-        super().__init__(x,y,120,5,25,80,1)
+        super().__init__(x,y,120,5,25,80)
         
     def explode(self,attackers,target):  #範圍傷害
         x1 = target.x + target.img.get_width()/2
@@ -74,5 +73,5 @@ class King(Defenser):     #大王椰
 
 class Ice(Defenser):     #杜老椰
     def __init__(self):
-        super().__init__(x,y,60,20,1,210,1)    
+        super().__init__(x,y,60,20,1,210)    
 
