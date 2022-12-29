@@ -38,7 +38,7 @@ class Defenser:
 
 
 
-class Suger(Defenser):      #砂糖椰
+class Sugar(Defenser):      #砂糖椰
     def __init__(self,x,y):
         super().__init__(x,y,25,10,4,120,1)
 
