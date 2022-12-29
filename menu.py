@@ -6,9 +6,8 @@ class button:
     """
     Button class for menu object
     """
-    def __init__(self, menu, img, name, pos):
+    def __init__(self, img, name, pos):
         self.name = name
-        self.menu = menu
         self.img = img
         self.x = pos[0]
         self.y = pos[1]
@@ -33,3 +32,57 @@ class button:
         :return :None
         """
         win.blit(self.img, (self.x, self.y))
+    
+class PlayPauseButton(button):
+    def __init__(self, play_img, pause_img, pos):
+        self.play_img = play_img
+        self.pause_img = pause_img
+        self.pos = pos
+        self.width = self.play_img.get_width()
+        self.height = self.play_img.get_height()
+        self.isRunning = True
+    
+    def draw(self, win):
+        if self.isRunning:
+            win.blit(self.play_img, self.pos)
+        else:
+            win.blit(self.pause_img, self.pos)
+
+class ShopMenu:
+    def __init__(self, pos, background_img):
+        self.pos = pos
+        self.bg = background_img
+        self.buttons = []
+        self.items = 0
+        self.width = self.bg.get_width()
+        self.height = self.bg.get_height()
+
+    def add_btn(self, img, name, interval):
+        """
+        Add a button to the menu
+        :para img :surface
+        :para name: name
+        :para interval: int
+        """
+        button_pos = (self.pos[0], self.pos[1] + self.items*interval)
+        self.items += 1
+        self.buttons.append(button(img, name, button_pos))
+    
+    def draw(self, win):
+        win.blit(self.bg, self.pos)
+        for btn in self.buttons:
+            btn.draw(win)
+    
+    def click(self, pos):
+        for btn in self.buttons:
+            if btn.click(pos):
+                return btn.name
+        
+        return None
+
+class statusBar:
+    def __init__(self, pos, img):
+        self.img = img
+        self.pos = pos
+        self.money = 0
+
