@@ -11,13 +11,14 @@ class button:
     """
     Button class for menu object
     """
-    def __init__(self, img, name, pos):
+    def __init__(self, img, name, pos, cost):
         self.name = name
         self.img = img
         self.x = pos[0]
         self.y = pos[1]
         self.width = self.img.get_width()
         self.height = self.img.get_height()
+        self.cost = cost
     
     def click(self,pos):
         """
@@ -86,6 +87,13 @@ class ShopMenu:
         for btn in self.buttons:
             btn.draw(win)
     
+    def get_cost(self, name):
+        for btn in self.buttons:
+            if btn.name == name:
+                return btn.cost
+        
+        return None
+
     def click(self, pos):
         for btn in self.buttons:
             if btn.click(pos):

@@ -28,3 +28,9 @@ class Game:
         self.win = win
         self.mode = mode
         self.width, self.height = resolution
+        self.attackers = []
+        self.defensers = []
+        self.lifes_def = 140
+        self.money_def = 25
+        self.money_atk = 0
+        
