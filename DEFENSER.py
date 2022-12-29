@@ -1,7 +1,5 @@
 '''
 顯示圖片
-發射子彈
-碰撞偵測
 範圍傷害
 '''
 
@@ -23,20 +21,19 @@ class Defenser:
 
     def attack(self, attackers):
         attacker_closest = []
-        for attacker in attackers:
+        target_dis = 10000000
+        for attacker in attackers:    #攻擊目標判定
             x = attacker.x
             y = attacker.y
             dis = math.sqrt((self.x - attacker.img.get_width()/2 - x)**2 + (self.y - attacker.img.get_height()/2 - y)**2)
-            if dis < self.range: #是否在攻擊範圍內
-                self.inRange = True
-                attacker_closest.append(attacker)
-
-        attacker_closest.sort(key=lambda x: x.path_pos)
-        attacker_closest = attacker_closest[::-1]
-        if len(attacker_closest) > 0:
-            target = attacker_closest[0]
-            #朝目標發射子彈
-            #碰撞偵測
+            if dis < self.range: 
+                if dis < target_dis:
+                    target = attacker
+                    target_dis = dis
+        if target_dis < 10000000:
+            #朝目標攻擊
+            if xxxxxx:
+                return target,self.damage
             
 
 
