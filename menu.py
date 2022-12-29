@@ -1,6 +1,11 @@
+"""
+Menu in game, including Play/Pause button and Shop menu
+"""
+
 import pygame
 import os
 pygame.font.init()
+
 
 class button:
     """
@@ -44,9 +49,17 @@ class PlayPauseButton(button):
     
     def draw(self, win):
         if self.isRunning:
-            win.blit(self.play_img, self.pos)
-        else:
             win.blit(self.pause_img, self.pos)
+        else:
+            win.blit(self.play_img, self.pos)
+    
+    def clicked(self):
+        """
+        update the running status after been clicked
+        """
+        self.isRunning = not self.isRunning
+
+        
 
 class ShopMenu:
     def __init__(self, pos, background_img):
@@ -80,9 +93,5 @@ class ShopMenu:
         
         return None
 
-class statusBar:
-    def __init__(self, pos, img):
-        self.img = img
-        self.pos = pos
-        self.money = 0
+
 

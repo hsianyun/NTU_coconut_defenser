@@ -36,9 +36,9 @@ class MainMenu:
                     #check if hit the buttons
                     if self.btn_start[0] <= x <= self.btn_start[0] + self.btn_start[2]:
                         if self.btn_start[1] <= y <= self.btn_start[1] + self.btn_start[3]:
-                            # game = Game(self.win, self.mode)    #init game object
-                            # game.run()      #run the game
-                            # del game        #After leaving the game, del the game object
+                            game = Game(self.win, self.mode)    #init game object
+                            game.run()      #run the game
+                            del game        #After leaving the game, del the game object
                             pass
                     
                     if self.btn_PvE[0] <= x <= self.btn_PvE[0] + self.btn_PvE[2]:
