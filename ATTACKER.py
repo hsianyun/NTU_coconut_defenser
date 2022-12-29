@@ -11,10 +11,11 @@
 
 import pygame
 import os
+import math
 
 
 class Attacker:
-    def __init__(self):
+    def __init__(self, pos= (0, 500)):
         self.damage = 0
         self.width = 0 ##待改
         self.height = 0 ##待改
@@ -24,14 +25,16 @@ class Attacker:
         self.direction_count = 0
         self.ice_count = -1
         self.shield = 0
-        self.x = self.path[0][0]
-        self.y = self.path[0][1]
+        self.event = 0  # 特殊事件 1是水源車 2是救護車
+        self.x = pos[0]
+        self.y = pos[1]
 
 
     # 畫圖
     def draw(self,win):
         self.img = 0 ##待改
         win.blit(self.img,(self.x - self.img.get_width()/2, self.y- self.img.get_height()/2))
+        self.draw_health_bar(win)
     
     # 移動
     def move(self):
@@ -52,6 +55,7 @@ class Attacker:
             self.path_count += 1
             self.direction_count += 1
         
+
     # 血量條
     def draw_health_bar(self, win):
         length = 50
@@ -61,21 +65,27 @@ class Attacker:
         pygame.draw.rect(win, (255,0,0), (self.x-30, self.y-75, length, 10), 0)
         pygame.draw.rect(win, (0, 255, 0), (self.x-30, self.y - 75, health_bar, 10), 0)
 
+
     # 受到攻擊扣血的機制並偵測是否死亡
     def hit(self,damage,attackers):
+        # 同溫層防護罩擋一次
         if self.shield == 1:
             self.shield -= 1
+        elif damage == 1: # 杜老椰攻擊力1
+            self.ice_count = 0 # 停30clk
         else:
             self.damage += damage
-        if self.damage >= self.ini_blood:
+        # 死亡判定和特殊技能
+        if self.damage >= self.ini_blood and self.event == 0:
             attackers.remove(self) # attackers 是一個包括所有活著的 attacker 的 list # 死亡
-        if damage == 1: #杜老椰攻擊力1
-            self.ice_count = 0       #停30clk
-
-
-    # 救護車補血的機制
-    def cure(self,):
-        pass
+        elif self.damage >= self.ini_blood and self.event == 1:
+            attackers.remove(self)
+            # 新增腳踏車
+        elif self.damage >= self.ini_blood and self.event == 2:
+            attackers.remove(self)
+            for attacker in attackers:
+                if math.sqrt((attacker.x - self.x)**2 + (attacker.y - self.y)**2) <= 70:
+                    attacker.damage = 0
 
 
 
@@ -122,10 +132,7 @@ class Shui_yuan_car(Attacker):
         self.ini_blood = 100
         self.power = 8
         self.speed = 1
-
-    def special_ability(self):
-        pass  # 特殊能力
-
+        self.event = 1  # 特殊事件 1是水源車 2是救護車
 
 
 class Ambulance(Attacker):
@@ -135,6 +142,8 @@ class Ambulance(Attacker):
         self.ini_blood = 100
         self.power = 8
         self.speed = 2
+        self.event = 2  # 特殊事件 1是水源車 2是救護車
+
 
 
 class Student_Association(Attacker):
