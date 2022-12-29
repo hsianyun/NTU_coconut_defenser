@@ -23,6 +23,7 @@ class Attacker:
         self.direction = ["R","U","R","D","R","U","R","D","L","D","R"]
         self.direction_count = 0
         self.ice_count = -1
+        self.shield = 0
         self.x = self.path[0][0]
         self.y = self.path[0][1]
 
@@ -62,9 +63,12 @@ class Attacker:
 
     # 受到攻擊扣血的機制並偵測是否死亡
     def hit(self,damage,attackers):
-        self.damage += damage
+        if self.shield == 1:
+            self.shield -= 1
+        else:
+            self.damage += damage
         if self.damage >= self.ini_blood:
-            attackers.remove(self) # attackers是一個包括所有活著的attacker的list # 死亡
+            attackers.remove(self) # attackers 是一個包括所有活著的 attacker 的 list # 死亡
         if damage == 1: #杜老椰攻擊力1
             self.ice_count = 0       #停30clk
 
@@ -119,7 +123,8 @@ class Shui_yuan_car(Attacker):
         self.power = 8
         self.speed = 1
 
-    def special_ability(self):  # 特殊能力
+    def special_ability(self):
+        pass  # 特殊能力
 
 
 
@@ -139,4 +144,6 @@ class Student_Association(Attacker):
         self.ini_blood = 20
         self.power = 1
         self.speed = 2
+        self.shield = 1
+
 
