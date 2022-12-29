@@ -37,7 +37,7 @@ class Defenser:
                 else:
                     Attacker.hit(target,self.damage,attackers)
 
-    def explode(self,attackers,target):  #範圍傷害
+    def explode(self,target,attackers):  #範圍傷害
         x1 = target.x + target.img.get_width()/2
         y1 = target.y + target.img.get_height()/2
         for attacker in attackers:
