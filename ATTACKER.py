@@ -49,7 +49,7 @@ class Attacker:
          
 
     # 受到攻擊扣血的機制並偵測是否死亡
-    def hit(self,damage):
+    def hit(self,damage,attackers):
         self.damage += damage
         if self.damage >= self.ini_blood:
             attackers.remove(self) # attackers是一個包括所有活著的attacker的list # 死亡
