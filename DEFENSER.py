@@ -59,6 +59,9 @@ class Defenser:
         self.y = pos[1]
     
     def collide(self, other):
+        """
+        Check if two defensers are collided
+        """
         other_x = other.x
         other_y = other.y
         if self.x - self.width < other_x < self.x + self.width:
