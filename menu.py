@@ -71,7 +71,7 @@ class ShopMenu:
         self.width = self.bg.get_width()
         self.height = self.bg.get_height()
 
-    def add_btn(self, img, name, interval):
+    def add_btn(self, img, name, interval, cost):
         """
         Add a button to the menu
         :para img :surface
@@ -80,7 +80,7 @@ class ShopMenu:
         """
         button_pos = (self.pos[0], self.pos[1] + self.items*interval)
         self.items += 1
-        self.buttons.append(button(img, name, button_pos))
+        self.buttons.append(button(img, name, button_pos, cost))
     
     def draw(self, win):
         win.blit(self.bg, self.pos)

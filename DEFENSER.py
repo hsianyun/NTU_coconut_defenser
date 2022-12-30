@@ -14,6 +14,9 @@ class Defenser:
         self.rate_of_fire = rate
         self.damage = damage
         self.range = Range
+        self.width = 40
+        self.height = 40
+        self.place_color = (0,0,255,100)    #綠色，透明度100
 
     def draw(self):   #顯示圖片
         pass 
@@ -47,11 +50,30 @@ class Defenser:
                 dis = math.sqrt((x1 - x2)**2 + (y1-y2)**2)
                 if dis < 20:
                     Attacker.hit(attacker,120,attackers)
+
+    def move(self, pos):
+        """
+        Move the defenser
+        """
+        self.x = pos[0]
+        self.y = pos[1]
+    
+    def collide(self, other):
+        other_x = other.x
+        other_y = other.y
+        if self.x - self.width < other_x < self.x + self.width:
+            if self.y - self.height < other_y < self.y + self.height:
+                return True
+        
+        return False
+    
+    def draw_placement(self, win):
+        surface = pygame.Surface((self.width * 4, self.height * 4), pygame.SRCALPHA, 32)
+        pygame.draw.rect(surface, self.place_color,[40, 40, self.width, self.height], 0)
+
+        win.blit(surface, (self.x - 40, self.y - 40))
         
             
-
-
-
 class Sugar(Defenser):      #砂糖椰
     def __init__(self,x,y):
         super().__init__(x,y,25,10,4,120)
