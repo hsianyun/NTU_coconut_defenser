@@ -54,6 +54,8 @@ class Game:
         self.bg = pygame.image.load(os.path.join("game_assets",""))
         self.bg = pygame.transform.scale(self.bg, resolution)
         self.timer = time.time()    #get present time
+        self.wave_timer = time.time()
+        self.wave_timer_en = True
         self.life_font = pygame.font.SysFont('comicsans', 65)
         self.moving_obj = None
         self.shopmenu_def = ShopMenu((1100,0), shopbg_img)
@@ -174,13 +176,46 @@ class pveGame(Game):
                                 self.add_tower(shop_button)
             #update the status of every object
             if self.isRunning:
-                pass
+                to_del = []
+                for atk in self.attackers:
+                    atk.move()
+                    if atk.x >= path[-1][0]:
+                        to_del.append(atk)
+                
+                for d in to_del:
+                    self.lifes_def -= d.damage
+                    self.attackers.remove(d)
+                
+                for defenser in self.defensers:
+                    defenser.attack(self.attackers)
+
+                if self.lifes_def <= 0:
+                    print('You Lose')   #待改(加結束畫面)
+                    run = False    
+
+        self.draw()      
+
 
 
     def gen_attacker(self):
         """
         Automatically generate attacker in pve mode
         """
-        pass
-
-        
+        if sum(self.current_wave) == 0:
+            if len(self.attackers) == 0:
+                if self.wave_timer_en:
+                    self.wave_timer = time.time()
+                    self.wave_timer_en = False
+                
+                if time.time() - self.wave_timer >= 20:
+                    self.wave += 1
+                    self.current_wave = waves[self.wave]
+                    self.wave_timer_en = True
+            
+                else:
+                    wave_attackers = [Pedestrian(), Bicycle(), Skateboard(), Car(), Shui_yuan_car(), Ambulance(), Student_Association()]
+                    for x in range(len(self.current_wave)):
+                        if self.current_wave[x] != 0:
+                            self.attackers.append(wave_attackers[x])
+                            self.current_wave -= 1
+                            break

@@ -16,14 +16,16 @@ class Defenser:
         self.range = Range
         self.width = 40
         self.height = 40
+        self.tick_count = 0
         self.place_color = (0,0,255,100)    #綠色，透明度100
 
     def draw(self):   #顯示圖片
         pass 
 
-    def attack(self, attackers, tick):
+    def attack(self, attackers):
         target_dis = 10000000
-        if tick % 60//self.rate_of_fire == 0:
+        self.tick_count += 1
+        if self.tick_count % 60//self.rate_of_fire == 0:
             for attacker in attackers:    #攻擊目標判定
                 x = attacker.x
                 y = attacker.y
