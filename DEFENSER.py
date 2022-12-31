@@ -7,7 +7,7 @@ import math
 from ATTACKER import Attacker 
 
 class Defenser:
-    def __init__(self,x,y,price,rate,damage,Range):
+    def __init__(self,x,y,price,rate,damage,Range,tower_imgs):
         self.x = x
         self.y = y
         self.price = price
@@ -18,14 +18,17 @@ class Defenser:
         self.height = 40
         self.tick_count = 0
         self.place_color = (0,0,255,100)    #綠色，透明度100
+        self.imgs = tower_imgs
+        self.attack_mode = 0  #沒攻擊時0，攻擊時1
 
-    def draw(self):   #顯示圖片
-        pass 
+    def draw(self,win):   #顯示defenser圖片
+        img = self.imgs[self.attack_mode]
+        win.blit(img, (self.x-img.get_width()//2, self.y-img.get_height()//2))
 
     def attack(self, attackers):
         target_dis = 10000000
-        self.tick_count += 1
-        if self.tick_count % 60//self.rate_of_fire == 0:
+        if self.tick_count % (60//self.rate_of_fire) == 0:
+            self.tick_count += 1
             for attacker in attackers:    #攻擊目標判定
                 x = attacker.x
                 y = attacker.y
@@ -35,12 +38,15 @@ class Defenser:
                         target = attacker
                         target_dis = dis
             if target_dis < 10000000:
-                #defenser開火動畫
+                self.attack_mode = 1 
                 if self.damage == 120:
                     Attacker.hit(target,self.damage,attackers)
                     self.explode(target,attackers)
                 else:
                     Attacker.hit(target,self.damage,attackers)
+        else:
+            self.tick_count = 0
+        self.attack_mode = 0
 
     def explode(self,target,attackers):  #範圍傷害
         x1 = target.x + target.img.get_width()/2
@@ -81,21 +87,21 @@ class Defenser:
             
 class Sugar(Defenser):      #砂糖椰
     def __init__(self,x,y):
-        super().__init__(x,y,25,10,4,120)
+        super().__init__(x,y,25,10,4,120,["DefensersImage/sugar.png","DefensersImage/sugar1.png"])
 
 class Winebottle(Defenser):  #酒瓶椰
     def __init__(self,x,y):
-        super().__init__(x,y,30,30,2,100)
+        super().__init__(x,y,30,30,2,100,["DefensersImage/winebottle.png","DefensersImage/winebottle1.png"])
 
 class Golden(Defenser):   #黃金椰
     def __init__(self,x,y):
-        super().__init__(x,y,80,15,10,180)
+        super().__init__(x,y,80,15,10,180,["DefensersImage/golden.png","DefensersImage/golden1.png"])
 
 class King(Defenser):     #大王椰
     def __init__(self,x,y):
-        super().__init__(x,y,120,5,25,80)
+        super().__init__(x,y,120,5,25,80,["DefensersImage/king.png","DefensersImage/king1.png"])
 
 class Ice(Defenser):     #杜老椰
     def __init__(self,x,y):
-        super().__init__(x,y,60,20,1,210)    
+        super().__init__(x,y,60,20,1,210,["DefensersImage/icecream.png","DefensersImage/icecream1.png"])    
 
