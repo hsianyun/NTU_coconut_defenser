@@ -54,8 +54,6 @@ class Game:
         self.bg = pygame.image.load(os.path.join("game_assets",""))
         self.bg = pygame.transform.scale(self.bg, resolution)
         self.timer = time.time()    #get present time
-        self.wave_timer = time.time()
-        self.wave_timer_en = True
         self.life_font = pygame.font.SysFont('comicsans', 65)
         self.moving_obj = None
         self.shopmenu_def = ShopMenu((1100,0), shopbg_img)
@@ -66,6 +64,7 @@ class Game:
         self.shopmenu_def.add_btn(buy_ice, "buy_ice", 90, 160)
         self.isRunning = True   #暫停時，仍可購買物品與調整位置
         self.pause_btn = PlayPauseButton(play_btn, pause_btn, (110,10))
+        self.tick_count = 0
     
     def run(self):
         pass
@@ -88,21 +87,111 @@ class Game:
             self.moving_obj = obj
         except Exception as e:
             print(str(e) + '"NOT VALID NAME')
+    
+    def is_valid(self, defenser):
+        return True
 
 class pvpGame(Game):
     def __init__(self, win, mode):
         super().__init__(win, mode)
         self.shopmenu_atk = ShopMenu((0,0), shopbg_img2)
-        self.shopmenu_atk.add_btn(buy_pedestrian, "buy_pedestrian", 60)
-        self.shopmenu_atk.add_btn(buy_bicycle, "buy_bicycle", 60)
-        self.shopmenu_atk.add_btn(buy_skateboard, "buy_skateboard", 60)
-        self.shopmenu_atk.add_btn(buy_car, "buy_car", 60)
-        self.shopmenu_atk.add_btn(buy_shuiyuan, "buy_shuiyuan", 60)
-        self.shopmenu_atk.add_btn(buy_ambulance, "buy_ambulance", 60)
-        self.shopmenu_atk.add_btn(buy_sa, "buy_sa", 60)
+        self.shopmenu_atk.add_btn(buy_pedestrian, "buy_pedestrian", 60, 2)
+        self.shopmenu_atk.add_btn(buy_bicycle, "buy_bicycle", 60, 10)
+        self.shopmenu_atk.add_btn(buy_skateboard, "buy_skateboard", 60, 4)
+        self.shopmenu_atk.add_btn(buy_car, "buy_car", 60, 50)
+        self.shopmenu_atk.add_btn(buy_shuiyuan, "buy_shuiyuan", 60, 90)
+        self.shopmenu_atk.add_btn(buy_ambulance, "buy_ambulance", 60, 80)
+        self.shopmenu_atk.add_btn(buy_sa, "buy_sa", 60, 6)
         self.money_atk = 0
     
-    def add_attacker(self):
+    def run(self):
+        run = True  #If run == false -> game quit
+        clock = pygame.time.Clock()
+
+        while run:
+            clock.tick(FPS)
+
+            #Add money in rate of $5 per second
+            if self.tick_count % 12 == 0:
+                self.money_def += 1
+                self.money_atk += 1
+            
+            pos = pygame.mouse.get_pos()
+            pos_grid = [(pos[0]//40)*40, (pos[1]//40)*40]
+            
+            #check for moving object and add color under it
+            if self.moving_obj:
+                self.moving_obj.move(pos_grid)
+                collide = False
+
+                for defenser in self.defensers:
+                    if defenser.collide(self.moving_obj):
+                        collide = True
+                        self.moving_obj.place_color = (255,0,0,100)
+                    else:
+                        if not collide: #若尚未被碰撞，設定基底顏色
+                            self.moving_obj.place_color = (0,0,255,100)
+            
+            #event log
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                
+                if event.type == pygame.MOUSEBUTTONUP:
+                    
+                    #if you are moving a tower
+                    if self.moving_obj:
+                        allowed = True
+
+                        for defenser in self.defensers:
+                            if defenser.collide(self.moving_obj):
+                                allowed = False
+                        
+                        if allowed and self.is_valid(self.moving_obj):
+                            self.defensers.append(self.moving_obj)
+                            self.moving_obj = None
+                    
+                    else:
+                        #check if you are pressing pause button
+                        if self.pause_btn.click(pos):
+                            self.isRunning = not self.isRunning
+                            self.pause_btn.clicked()    #Modify the image of pause button
+                        
+                        #check if user is buying defenser
+                        shop_button = self.shopmenu_def.click()
+                        if shop_button:
+                            cost = self.shopmenu_def.get_cost(shop_button)
+                            if self.money_def >= cost:
+                                self.money_def -= cost
+                                self.add_tower(shop_button)
+                        
+                if event.type == pygame.KEYDOWN:
+                    self.add_attacker(self.attackers, event.key)
+
+            #update the status of every object
+            if self.isRunning:
+                to_del = []
+                for atk in self.attackers:
+                    atk.move()
+                    if atk.x >= path[-1][0]:
+                        to_del.append(atk)
+                
+                for d in to_del:
+                    self.lifes_def -= d.damage
+                    self.attackers.remove(d)
+                
+                for defenser in self.defensers:
+                    defenser.attack(self.attackers)
+
+                if self.lifes_def <= 0:
+                    print('You Lose')   #待改(加結束畫面)
+                    run = False    
+
+            self.tick_count += 1
+            self.draw()
+
+    #以鍵盤控制攻擊者的放置
+    def add_attacker(self, attackers, key):
         pass
         
 
@@ -112,6 +201,8 @@ class pveGame(Game):
         super().__init__(win, mode)
         self.wave = 0
         self.current_wave = waves[self.wave]
+        self.wave_timer = time.time()
+        self.wave_timer_en = True
     
     def run(self):
         run = True  #If run == false -> game quit
@@ -119,6 +210,10 @@ class pveGame(Game):
 
         while run:
             clock.tick(FPS)
+
+            #Add money in rate of $5 per second
+            if self.tick_count % 12 == 0:
+                self.money_def += 1
 
             #Controll the generate of attacker
             if self.isRunning :
@@ -157,7 +252,7 @@ class pveGame(Game):
                             if defenser.collide(self.moving_obj):
                                 allowed = False
                         
-                        if allowed:
+                        if allowed and self.is_valid(self.moving_obj):
                             self.defensers.append(self.moving_obj)
                             self.moving_obj = None
                     
@@ -193,7 +288,8 @@ class pveGame(Game):
                     print('You Lose')   #待改(加結束畫面)
                     run = False    
 
-        self.draw()      
+            self.tick_count += 1
+            self.draw()      
 
 
 
