@@ -44,8 +44,8 @@ class Defenser:
                     self.explode(target,attackers)
                 else:
                     Attacker.hit(target,self.damage,attackers)
-        else:
-            self.tick_count = 0
+            else:
+                self.tick_count = 0   
         self.attack_mode = 0
 
     def explode(self,target,attackers):  #範圍傷害
