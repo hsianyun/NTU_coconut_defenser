@@ -86,6 +86,7 @@ class Attacker:
             for attacker in attackers:
                 if math.sqrt((attacker.x - self.x)**2 + (attacker.y - self.y)**2) <= 70:
                     attacker.damage = 0
+        
 
 
 
