@@ -26,6 +26,8 @@ class Attacker:
         self.ice_count = -1
         self.shield = 0
         self.event = 0  # 特殊事件 1是水源車 2是救護車
+        self.imgs = []
+        
         self.x = pos[0]
         self.y = pos[1]
 
@@ -33,7 +35,7 @@ class Attacker:
     # 畫圖
     def draw(self,win):
         self.img = 0 ##待改
-        win.blit(self.img,(self.x - self.img.get_width()/2, self.y- self.img.get_height()/2))
+        win.blit(self.img,(self.x - self.img.get_width()//2, self.y- self.img.get_height()//2))
         self.draw_health_bar(win)
     
     # 移動
