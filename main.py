@@ -11,8 +11,9 @@ pygame.init()
 FPS = 60
 path = [(0,500),(220,500),(220,100),(420,100),(420,260),(740,260),(740,100),(1020,100),(1020,380),(420,380),(420,500),(1200,500)]
 #waves settings in pve mode
-#幫我寫這裡
-waves = []
+#幫我寫這裡(逸山)
+waves = [[1,2,3,4,5,6,7]]
+# [Pedestrian(), Bicycle(), Skateboard(), Car(), Shui_yuan_car(), Ambulance(), Student_Association()]
 
 heart_img = pygame.image.load(os.path.join('game_assets', 'heart.png')).convert_alpha()
 money_img = pygame.image.load(os.path.join('game_assets', 'money.png')).convert_alpha()
