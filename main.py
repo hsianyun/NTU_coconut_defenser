@@ -87,8 +87,8 @@ class Game:
         
     def add_tower(self, name):
         x, y = pygame.mouse.get_pos()
-        x_grid = (x // 40) * 40
-        y_grid = (y // 40) * 40
+        x_grid = (x // 40) * 40 + 20
+        y_grid = (y // 40) * 40 + 20
         tower_dict = {"buy_sugar": Sugar(x_grid,y_grid),
                      "buy_wine": Winebottle(x_grid,y_grid),
                      "buy_golden": Golden(x_grid, y_grid), 
