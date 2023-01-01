@@ -118,8 +118,8 @@ class Pedestrian(Attacker):
 
 
 class Bicycle(Attacker):
-    def __init__(self,):
-        super().__init__()
+    def __init__(self,pos=(0,500)):
+        super().__init__(pos)
         self.price = 10
         self.ini_blood = 30
         self.power = 2

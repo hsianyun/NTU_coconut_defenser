@@ -11,4 +11,3 @@ if __name__ == '__main__':
     from mainmenu import MainMenu
     mainmenu = MainMenu(win)
     mainmenu.run()
-    

@@ -12,7 +12,7 @@ FPS = 60
 path = [(0,500),(220,500),(220,100),(420,100),(420,260),(740,260),(740,100),(1020,100),(1020,380),(420,380),(420,500),(1200,500)]
 #waves settings in pve mode
 #幫我寫這裡(逸山)
-waves = [[1,2,3,4,5,6,7]]
+waves = [[3,1,0,0,0,0,0],[10,3,0,0,0,0,0],[15,5,0,1,0,0,0],[10,10,5,2,0,0,0],[5,1,0,3,0,0,5],[0,20,10,0,0,0,5],[0,5,5,3,2,1,3]]
 # [Pedestrian(), Bicycle(), Skateboard(), Car(), Shui_yuan_car(), Ambulance(), Student_Association()]
 
 heart_img = pygame.image.load(os.path.join('game_assets', 'heart.png')).convert_alpha()
@@ -55,7 +55,7 @@ class Game:
         self.defensers = []
         self.lifes_def = 140
         self.money_def = 25
-        self.bg = pygame.image.load(os.path.join("game_assets","mainmenu_bg.png"))
+        self.bg = pygame.image.load(os.path.join("game_assets","background.png"))
         self.bg = pygame.transform.scale(self.bg, resolution)
         self.timer = time.time()    #get present time
         self.life_font = pygame.font.SysFont('comicsans', 20)
@@ -65,7 +65,7 @@ class Game:
         self.shopmenu_def.add_btn(buy_wine, "buy_wine", 90, 30)
         self.shopmenu_def.add_btn(buy_golden, "buy_golden", 90, 80)
         self.shopmenu_def.add_btn(buy_king, "buy_king", 90, 120)
-        self.shopmenu_def.add_btn(buy_ice, "buy_ice", 90, 160)
+        self.shopmenu_def.add_btn(buy_ice, "buy_ice", 90, 60)
         self.isRunning = True   #暫停時，仍可購買物品與調整位置
         self.pause_btn = PlayPauseButton(play_btn, pause_btn, (110,10))
         self.tick_count = 0
@@ -401,13 +401,13 @@ class pveGame(Game):
                     self.current_wave = waves[self.wave]
                     self.wave_timer_en = True
             
-                else:
-                    wave_attackers = [Pedestrian(), Bicycle(), Skateboard(), Car(), Shui_yuan_car(), Ambulance(), Student_Association()]
-                    for x in range(len(self.current_wave)):
-                        if self.current_wave[x] != 0:
-                            self.attackers.append(wave_attackers[x])
-                            self.current_wave -= 1
-                            break
+        else:
+            wave_attackers = [Pedestrian(), Bicycle(), Skateboard(), Car(), Shui_yuan_car(), Ambulance(), Student_Association()]
+            for x in range(len(self.current_wave)):
+                if self.current_wave[x] != 0:
+                    self.attackers.append(wave_attackers[x])
+                    self.current_wave[x] -= 1
+                    break
     def draw(self):
         super().draw()
 
