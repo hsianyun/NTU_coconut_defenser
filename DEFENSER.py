@@ -63,8 +63,8 @@ class Defenser:
         """
         Move the defenser
         """
-        self.x = pos[0]
-        self.y = pos[1]
+        self.x = pos[0] +20
+        self.y = pos[1] +20
     
     def collide(self, other):
         """

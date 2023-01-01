@@ -70,8 +70,21 @@ class Game:
         pass
 
     def draw(self):
-        pass
-    
+        self.win.blit(self.bg, (0,0))
+        
+        if self.moving_obj:
+            self.moving_obj.draw_placement(self.win)
+        
+        for defenser in self.defensers:
+            defenser.draw(self.win)
+        
+        for attacker in self.attackers:
+            attacker.draw(self.win)
+        
+        if self.moving_obj:
+            self.moving_obj.draw(self.win)
+
+        
     def add_tower(self, name):
         x, y = pygame.mouse.get_pos()
         x_grid = (x // 40) * 40
@@ -103,6 +116,7 @@ class pvpGame(Game):
         self.shopmenu_atk.add_btn(buy_ambulance, "buy_ambulance", 60, 80)
         self.shopmenu_atk.add_btn(buy_sa, "buy_sa", 60, 6)
         self.money_atk = 0
+        self.start_time = time.time()
     
     def run(self):
         run = True  #If run == false -> game quit
@@ -165,8 +179,8 @@ class pvpGame(Game):
                                 self.money_def -= cost
                                 self.add_tower(shop_button)
                         
-                if event.type == pygame.KEYDOWN:
-                    self.add_attacker(self.attackers, event.key)
+                if event.type == pygame.KEYUP:
+                    self.buy_attacker(self.attackers, event.key)
 
             #update the status of every object
             if self.isRunning:
@@ -184,15 +198,46 @@ class pvpGame(Game):
                     defenser.attack(self.attackers)
 
                 if self.lifes_def <= 0:
-                    print('You Lose')   #待改(加結束畫面)
+                    print('Attacker Win!!')   #待改(加結束畫面)
+                    run = False
+
+                if time.time() - self.start_time >= 300:
+                    print('Defenser Win!!')
                     run = False    
 
             self.tick_count += 1
             self.draw()
 
     #以鍵盤控制攻擊者的放置
-    def add_attacker(self, attackers, key):
-        pass
+    def buy_attacker(self, key):
+        attackers_dict = {"buy_pedestrian": Pedestrian(), "buy_bicycle": Bicycle(), "buy_skateboard": Skateboard(),
+         "buy_car": Car(), "buy_shuiyuan": Shui_yuan_car(), "buy_ambulance": Ambulance(), "buy_sa": Student_Association()}
+        
+        if key == pygame.K_1:
+            self.add_attacker("buy_pedestrian", attackers_dict)
+        elif key == pygame.K_2:
+            self.add_attacker("buy_bicycle", attackers_dict)
+        elif key == pygame.K_3:
+            self.add_attacker("buy_skateboard", attackers_dict)
+        elif key == pygame.K_3:
+            self.add_attacker("buy_car", attackers_dict)
+        elif key == pygame.K_3:
+            self.add_attacker("buy_shuiyuan", attackers_dict)
+        elif key == pygame.K_3:
+            self.add_attacker("buy_ambulance", attackers_dict)
+        elif key == pygame.K_3:
+            self.add_attacker("buy_sa", attackers_dict)
+    
+    def add_attacker(self, item, attackers_dict):
+        cost = self.shopmenu_atk.get_cost(item)
+        if self.money_atk >= cost:
+            try:
+                self.attackers.append(attackers_dict[item])
+                self.money_atk -= cost
+            except Exception as e:
+                print(str(e)+ 'NO VALID NAME')
+
+        
         
 
 
