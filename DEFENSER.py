@@ -47,9 +47,11 @@ class Defenser:
                     Attacker.hit(target,self.damage,attackers)
             else:
                 self.tick_count = 0  #沒有攻擊目標則重置tick 
-        self.attack_mode = 0
+                self.attack_mode = 0
+        else:
+            self.attack_mode = 0
 
-    def explode(self,target,attackers):  #範圍傷害
+    def explode(self,target,attackers):  #大王椰範圍傷害
         x1 = target.x + target.img.get_width()/2
         y1 = target.y + target.img.get_height()/2
         for attacker in attackers:
