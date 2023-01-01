@@ -217,7 +217,7 @@ class pvpGame(Game):
                                 self.add_tower(shop_button)
                         
                 if event.type == pygame.KEYUP:
-                    self.buy_attacker(self.attackers, event.key)
+                    self.buy_attacker(event.key)
 
             #update the status of every object
             if self.isRunning:
@@ -228,7 +228,7 @@ class pvpGame(Game):
                         to_del.append(atk)
                 
                 for d in to_del:
-                    self.lifes_def -= d.damage
+                    self.lifes_def -= d.power
                     self.attackers.remove(d)
                 
                 for defenser in self.defensers:
@@ -278,7 +278,7 @@ class pvpGame(Game):
         super().draw()
 
         #draw attacker money
-        text = self.life_font.render('x' + str(self.money_def),1, (255,255,255))
+        text = self.life_font.render('x' + str(self.money_atk),1, (255,255,255))
         money = pygame.transform.scale(money_img,(50,50))
         start_x = 110
 

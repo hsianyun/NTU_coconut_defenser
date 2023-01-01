@@ -26,6 +26,7 @@ class Attacker:
         self.ice_count = -1
         self.shield = 0
         self.event = 0  # 特殊事件 1是水源車 2是救護車
+        self.ini_blood = 0
         self.imgs = []
         self.animation_count = 0
         self.x = pos[0]
@@ -53,11 +54,11 @@ class Attacker:
         elif self.direction[self.direction_count] == "R":
             self.x += self.speed
         elif self.direction[self.direction_count] == "U":
-            self.y += self.speed
+            self.y -= self.speed
         elif self.direction[self.direction_count] == "L":
             self.x -= self.speed
         elif self.direction[self.direction_count] == "D":
-            self.y -= self.speed
+            self.y += self.speed
         
         if self.x == self.path[self.path_count + 1][0] and self.y == self.path[self.path_count + 1][1]:
             self.path_count += 1
@@ -67,8 +68,7 @@ class Attacker:
     # 血量條
     def draw_health_bar(self, win):
         length = 50
-        move_by = length / self.max_health
-        health_bar = round(move_by * self.health)
+        health_bar = round(length * (self.ini_blood - self.damage) // self.ini_blood)
 
         pygame.draw.rect(win, (255,0,0), (self.x-30, self.y-75, length, 10), 0)
         pygame.draw.rect(win, (0, 255, 0), (self.x-30, self.y - 75, health_bar, 10), 0)
@@ -89,7 +89,7 @@ class Attacker:
         elif self.damage >= self.ini_blood and self.event == 1:
             
             for _ in range(3):
-                attackers.append(Bicycle(self.x, self.y)) # 新增腳踏車
+                attackers.append(Bicycle((self.x, self.y))) # 新增腳踏車
 
             attackers.remove(self)
 
@@ -103,8 +103,8 @@ class Attacker:
 
 
 class Pedestrian(Attacker):
-    def __init__(self):
-        super().__init__()
+    def __init__(self,pos = (0,500)):
+        super().__init__(pos)
         self.price = 2
         self.ini_blood = 10
         self.power = 1
@@ -118,7 +118,7 @@ class Pedestrian(Attacker):
 
 
 class Bicycle(Attacker):
-    def __init__(self):
+    def __init__(self,):
         super().__init__()
         self.price = 10
         self.ini_blood = 30

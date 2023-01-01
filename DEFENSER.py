@@ -33,7 +33,7 @@ class Defenser:
             for attacker in attackers:    #攻擊目標判定
                 x = attacker.x
                 y = attacker.y
-                dis = math.sqrt((self.x - attacker.img.get_width()/2 - x)**2 + (self.y - attacker.img.get_height()/2 - y)**2)
+                dis = math.sqrt((self.x - attacker.imgs[0].get_width()/2 - x)**2 + (self.y - attacker.imgs[0].get_height()/2 - y)**2)
                 if dis < self.range: 
                     if dis < target_dis:
                         target = attacker
@@ -92,31 +92,41 @@ class Defenser:
 class Sugar(Defenser):      #砂糖椰
     def __init__(self,x,y):
         self.sugar = pygame.image.load(os.path.join('DefensersImage_matted', 'sugar.png')).convert_alpha()
+        self.sugar = pygame.transform.scale(self.sugar, (40,40))
         self.sugar_1 = pygame.image.load(os.path.join('DefensersImage_matted', 'sugar-1.png')).convert_alpha()
+        self.sugar_1 = pygame.transform.scale(self.sugar_1, (40,40))
         super().__init__(x,y,25,10,4,120,[self.sugar,self.sugar_1])
 
 class Winebottle(Defenser):  #酒瓶椰
     def __init__(self,x,y):
         self.winebottle = pygame.image.load(os.path.join('DefensersImage_matted', 'winebottle.png')).convert_alpha()
+        self.winebottle = pygame.transform.scale(self.winebottle, (40,40))
         self.winebottle_1 = pygame.image.load(os.path.join('DefensersImage_matted', 'winebottle-1.png')).convert_alpha()
+        self.winebottle_1 = pygame.transform.scale(self.winebottle_1, (40,40))
         super().__init__(x,y,30,30,2,100,[self.winebottle,self.winebottle_1])
 
 class Golden(Defenser):   #黃金椰
     def __init__(self,x,y):
         self.golden = pygame.image.load(os.path.join('DefensersImage_matted', 'golden.png')).convert_alpha()
+        self.golden = pygame.transform.scale(self.golden, (40,40))
         self.golden_1 = pygame.image.load(os.path.join('DefensersImage_matted', 'golden-1.png')).convert_alpha()
+        self.golden_1 = pygame.transform.scale(self.golden_1, (40,40))
         super().__init__(x,y,80,15,10,180,[self.golden,self.golden_1])
 
 class King(Defenser):     #大王椰
     def __init__(self,x,y):
         self.king = pygame.image.load(os.path.join('DefensersImage_matted', 'king.png')).convert_alpha()
+        self.king = pygame.transform.scale(self.king, (40,40))
         self.king_1 = pygame.image.load(os.path.join('DefensersImage_matted', 'king-1.png')).convert_alpha()
+        self.king_1 = pygame.transform.scale(self.king_1, (40,40))
         super().__init__(x,y,120,5,25,80,[self.king,self.king_1])
 
 class Ice(Defenser):     #杜老椰
     def __init__(self,x,y):
         self.ice = pygame.image.load(os.path.join('DefensersImage_matted', 'icecream.png')).convert_alpha()
+        self.ice = pygame.transform.scale(self.ice, (40,40))
         self.ice_1 = pygame.image.load(os.path.join('DefensersImage_matted', 'icecream-1.png')).convert_alpha()
+        self.ice_1 = pygame.transform.scale(self.ice_1, (40,40))
         super().__init__(x,y,60,20,1,210,[self.ice,self.ice_1])
 
 
