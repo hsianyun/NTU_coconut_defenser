@@ -17,8 +17,8 @@ import math
 class Attacker:
     def __init__(self, pos= (0, 500)):
         self.damage = 0
-        self.width = 0 ##待改
-        self.height = 0 ##待改
+        self.width = 30
+        self.height = 30
         self.path = [(0,500),(220,500),(220,100),(420,100),(420,260),(740,260),(740,100),(1020,100),(1020,380),(420,380),(420,500),(1200,500)]
         self.path_count = 0
         self.direction = ["R","U","R","D","R","U","R","D","L","D","R"]
@@ -27,19 +27,25 @@ class Attacker:
         self.shield = 0
         self.event = 0  # 特殊事件 1是水源車 2是救護車
         self.imgs = []
-        
+        self.animation_count = 0
         self.x = pos[0]
         self.y = pos[1]
 
 
     # 畫圖
     def draw(self,win):
-        self.img = 0 ##待改
+        self.img = self.imgs[self.animation_count]
+
         win.blit(self.img,(self.x - self.img.get_width()//2, self.y- self.img.get_height()//2))
         self.draw_health_bar(win)
     
     # 移動
     def move(self):
+
+        self.animation_count += 1
+        if self.animation_count >= len(self.imgs):
+            self.animation_count = 0
+        
         if self.ice_count >= 30:
             self.ice_count = -1
         elif self.ice_count >= 0:
@@ -82,7 +88,7 @@ class Attacker:
             attackers.remove(self) # attackers 是一個包括所有活著的 attacker 的 list # 死亡
         elif self.damage >= self.ini_blood and self.event == 1:
             attackers.remove(self)
-            # 新增腳踏車
+            attackers.append() # 新增腳踏車
         elif self.damage >= self.ini_blood and self.event == 2:
             attackers.remove(self)
             for attacker in attackers:
@@ -99,6 +105,12 @@ class Pedestrian(Attacker):
         self.ini_blood = 10
         self.power = 1
         self.speed = 1
+        self.imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("AttackersImage_matted", "pedestrian-1.png")).convert_alpha(),
+        (self.width, self.height)))
+        self.imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("AttackersImage_matted", "pedestrian-2.png")).convert_alpha(),
+        (self.width, self.height)))
 
 
 class Bicycle(Attacker):
@@ -108,6 +120,9 @@ class Bicycle(Attacker):
         self.ini_blood = 30
         self.power = 2
         self.speed = 2
+        self.imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("AttackersImage_matted", "bike.png")).convert_alpha(),
+        (self.width, self.height)))
 
 
 class Skateboard(Attacker):
@@ -117,6 +132,12 @@ class Skateboard(Attacker):
         self.ini_blood = 10
         self.power = 1
         self.speed = 4
+        self.imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("AttackersImage_matted", "skateboard.png")).convert_alpha(),
+        (self.width, self.height)))
+        self.imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("AttackersImage_matted", "skateboard-1.png")).convert_alpha(),
+        (self.width, self.height)))
 
 
 class Car(Attacker):
@@ -126,6 +147,9 @@ class Car(Attacker):
         self.ini_blood = 100
         self.power = 5
         self.speed = 2
+        self.imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("AttackersImage_matted", "car.png")).convert_alpha(),
+        (self.width, self.height)))
 
 
 class Shui_yuan_car(Attacker):
@@ -136,6 +160,9 @@ class Shui_yuan_car(Attacker):
         self.power = 8
         self.speed = 1
         self.event = 1  # 特殊事件 1是水源車 2是救護車
+        self.imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("AttackersImage_matted", "shuiyuantruck.png")).convert_alpha(),
+        (self.width, self.height)))
 
 
 class Ambulance(Attacker):
@@ -146,6 +173,9 @@ class Ambulance(Attacker):
         self.power = 8
         self.speed = 2
         self.event = 2  # 特殊事件 1是水源車 2是救護車
+        self.imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("AttackersImage_matted", "ambulance.png")).convert_alpha(),
+        (self.width, self.height)))
 
 
 
@@ -157,5 +187,11 @@ class Student_Association(Attacker):
         self.power = 1
         self.speed = 2
         self.shield = 1
+        self.imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("AttackersImage_matted", "SA-1.png")).convert_alpha(),
+        (self.width, self.height)))
+        self.imgs.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("AttackersImage_matted", "SA-2.png")).convert_alpha(),
+        (self.width, self.height)))
 
 
