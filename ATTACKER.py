@@ -27,7 +27,7 @@ class Attacker:
         self.shield = 0
         self.event = 0  # 特殊事件 1是水源車 2是救護車
         self.imgs = []
-        
+        self.animation_count = 0
         self.x = pos[0]
         self.y = pos[1]
 
