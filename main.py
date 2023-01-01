@@ -41,6 +41,7 @@ pause_btn = pygame.image.load(os.path.join('game_assets', 'pause_btn.png')).conv
 attacker_names = ["Pedestrian", "Bicycle", "Skateboard", "Car", "Shui_yuan_car", "Ambulance", "Student_Association"]
 defenser_names = ['Sugar', 'Winebottle', 'Golden', 'King', 'Ice']
 
+
 resolution = (1200, 600)    #The size of the window is (1200*600)
 
 class Game:
@@ -66,6 +67,9 @@ class Game:
         self.isRunning = True   #暫停時，仍可購買物品與調整位置
         self.pause_btn = PlayPauseButton(play_btn, pause_btn, (110,10))
         self.tick_count = 0
+        self.obstacles = [[0,100,0,420], [1100,1200,0,450], [0,240,480,520], [200,240,80,520],
+                        [200,440,80,120], [400,440,80,280],[400,760,240,280],[720,760,80,280],
+                        [720,1040,80,120],[1000,1040,80,400],[400,1040,360,400],[400,440,360,520],[400,1200,480,520]]
     
     def run(self):
         pass
@@ -85,6 +89,28 @@ class Game:
         if self.moving_obj:
             self.moving_obj.draw(self.win)
 
+        #draw menu
+        self.shopmenu_def.draw(self.win)
+
+        #draw play pause button
+        self.pause_btn.draw(self.win)
+
+        #draw lives
+        text = self.life_font.render('x' + str(self.lifes_def),1, (255,255,255))
+        life = pygame.transform.scale(heart_img,(50,50))
+        start_x = 1050
+
+        self.win.blit(life, (start_x, 10))
+        self.win.blit(text, (start_x + life.get_width + 10, 10))
+
+        #draw money
+        text = self.life_font.render('x' + str(self.money_def),1, (255,255,255))
+        money = pygame.transform.scale(money_img,(50,50))
+        start_x = 1050
+
+        self.win.blit(money, (start_x, 65))
+        self.win.blit(text, (start_x + money.get_width + 10, 65))
+
         
     def add_tower(self, name):
         x, y = pygame.mouse.get_pos()
@@ -102,8 +128,15 @@ class Game:
         except Exception as e:
             print(str(e) + '"NOT VALID NAME')
     
-    def is_valid(self, defenser):
-        return True
+    def is_valid(self, moving_obj):
+        valid = True
+        for obstacle in self.obstacles:
+            if obstacle[0] <= moving_obj.x <= obstacle[1]:
+                if obstacle[2] <= moving_obj.y <= obstacle[3]:
+                    valid = False
+                    break
+        
+        return valid
 
 class pvpGame(Game):
     def __init__(self, win, mode):
@@ -237,6 +270,19 @@ class pvpGame(Game):
                 self.money_atk -= cost
             except Exception as e:
                 print(str(e)+ 'NO VALID NAME')
+    
+    def draw(self):
+        super().draw()
+
+        #draw attacker money
+        text = self.life_font.render('x' + str(self.money_def),1, (255,255,255))
+        money = pygame.transform.scale(money_img,(50,50))
+        start_x = 110
+
+        self.win.blit(money, (start_x, 10))
+        self.win.blit(text, (start_x + money.get_width + 10, 10))
+
+        pygame.display.update()
 
         
         
@@ -292,13 +338,8 @@ class pveGame(Game):
                     
                     #if you are moving a tower
                     if self.moving_obj:
-                        allowed = True
-
-                        for defenser in self.defensers:
-                            if defenser.collide(self.moving_obj):
-                                allowed = False
                         
-                        if allowed and self.is_valid(self.moving_obj):
+                        if not collide and self.is_valid(self.moving_obj):
                             self.defensers.append(self.moving_obj)
                             self.moving_obj = None
                     
@@ -361,3 +402,12 @@ class pveGame(Game):
                             self.attackers.append(wave_attackers[x])
                             self.current_wave -= 1
                             break
+    def draw(self):
+        super().draw()
+
+        #draw text
+        text = self.life_font.render('Wave '+str(self.wave), 1, (255,255,255))
+        start_x = 110
+        self.win.blit(text, (start_x, 10))
+
+        pygame.display.update()
