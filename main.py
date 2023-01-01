@@ -37,8 +37,8 @@ buy_shuiyuan = pygame.image.load(os.path.join('game_assets', 'shuiyuan_buttom.pn
 buy_ambulance = pygame.image.load(os.path.join('game_assets', 'ambulance_buttom.png')).convert_alpha()
 buy_sa = pygame.image.load(os.path.join('game_assets', 'SA_buttom.png')).convert_alpha()
 
-play_btn = pygame.image.load(os.path.join('game_assets', 'play_btn.png')).convert_alpha()
-pause_btn = pygame.image.load(os.path.join('game_assets', 'pause_btn.png')).convert_alpha()
+play_btn = pygame.image.load(os.path.join('game_assets', 'play_buttom.png')).convert_alpha()
+pause_btn = pygame.image.load(os.path.join('game_assets', 'pause_buttom.png')).convert_alpha()
 
 attacker_names = ["Pedestrian", "Bicycle", "Skateboard", "Car", "Shui_yuan_car", "Ambulance", "Student_Association"]
 defenser_names = ['Sugar', 'Winebottle', 'Golden', 'King', 'Ice']
@@ -55,7 +55,7 @@ class Game:
         self.defensers = []
         self.lifes_def = 140
         self.money_def = 25
-        self.bg = pygame.image.load(os.path.join("game_assets",""))
+        self.bg = pygame.image.load(os.path.join("game_assets","mainmenu_bg.png"))
         self.bg = pygame.transform.scale(self.bg, resolution)
         self.timer = time.time()    #get present time
         self.life_font = pygame.font.SysFont('comicsans', 65)

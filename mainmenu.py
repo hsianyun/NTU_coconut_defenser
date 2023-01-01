@@ -64,5 +64,5 @@ class MainMenu:
         self.win.blit(mode_PvE_btn, (400,350))
         self.win.blit(mode_PvP_btn, (800,350))
         self.win.blit(start_btn, (self.btn_start[0], self.btn_start[1]))
-        self.win.blit(self.modetext, (575, 300))
+        self.win.blit(self.modetext, (self.width//2 - self.modetext.get_width()//2, 300))
         pygame.display.update()
