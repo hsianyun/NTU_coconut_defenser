@@ -88,7 +88,7 @@ class Attacker:
             attackers.remove(self) # attackers 是一個包括所有活著的 attacker 的 list # 死亡
         elif self.damage >= self.ini_blood and self.event == 1:
             attackers.remove(self)
-            # 新增腳踏車
+            attackers.append() # 新增腳踏車
         elif self.damage >= self.ini_blood and self.event == 2:
             attackers.remove(self)
             for attacker in attackers:
