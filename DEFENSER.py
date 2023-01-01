@@ -83,7 +83,7 @@ class Defenser:
         surface = pygame.Surface((self.width * 4, self.height * 4), pygame.SRCALPHA, 32)
         pygame.draw.rect(surface, self.place_color,[40, 40, self.width, self.height], 0)
 
-        win.blit(surface, (self.x - 40, self.y - 40))
+        win.blit(surface, (self.x - 60, self.y - 60))
         
             
 class Sugar(Defenser):      #砂糖椰

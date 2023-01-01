@@ -132,7 +132,7 @@ class pvpGame(Game):
                 self.money_atk += 1
             
             pos = pygame.mouse.get_pos()
-            pos_grid = [(pos[0]//40)*40, (pos[1]//40)*40]
+            pos_grid = [(pos[0]//40)*40 + 20, (pos[1]//40)*40 + 20]
             
             #check for moving object and add color under it
             if self.moving_obj:
@@ -220,13 +220,13 @@ class pvpGame(Game):
             self.add_attacker("buy_bicycle", attackers_dict)
         elif key == pygame.K_3:
             self.add_attacker("buy_skateboard", attackers_dict)
-        elif key == pygame.K_3:
+        elif key == pygame.K_4:
             self.add_attacker("buy_car", attackers_dict)
-        elif key == pygame.K_3:
+        elif key == pygame.K_5:
             self.add_attacker("buy_shuiyuan", attackers_dict)
-        elif key == pygame.K_3:
+        elif key == pygame.K_6:
             self.add_attacker("buy_ambulance", attackers_dict)
-        elif key == pygame.K_3:
+        elif key == pygame.K_7:
             self.add_attacker("buy_sa", attackers_dict)
     
     def add_attacker(self, item, attackers_dict):
@@ -268,7 +268,7 @@ class pveGame(Game):
                     self.gen_attacker()
             
             pos = pygame.mouse.get_pos()
-            pos_grid = [(pos[0]//40)*40, (pos[1]//40)*40]
+            pos_grid = [(pos[0]//40)*40 +20, (pos[1]//40)*40 +20]
             
             #check for moving object and add color under it
             if self.moving_obj:
