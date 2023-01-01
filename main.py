@@ -16,7 +16,9 @@ waves = [[1,2,3,4,5,6,7]]
 # [Pedestrian(), Bicycle(), Skateboard(), Car(), Shui_yuan_car(), Ambulance(), Student_Association()]
 
 heart_img = pygame.image.load(os.path.join('game_assets', 'heart.png')).convert_alpha()
+# https://www.nicepng.com/downpng/u2t4i1o0i1a9t4u2_minecraft-heart-minecraft-health-bar-png/
 money_img = pygame.image.load(os.path.join('game_assets', 'money.png')).convert_alpha()
+# https://www.pinterest.com/pin/71846556533350928/
 shopbg_img = pygame.image.load(os.path.join('game_assets', 'shop_bg.png')).convert_alpha()
 shopbg_img2 = pygame.image.load(os.path.join('game_assets', 'shop_bg_2.png')).convert_alpha()
 
