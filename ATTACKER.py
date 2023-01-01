@@ -17,8 +17,8 @@ import math
 class Attacker:
     def __init__(self, pos= (0, 500)):
         self.damage = 0
-        self.width = 30
-        self.height = 30
+        self.width = 40
+        self.height = 40
         self.path = [(0,500),(220,500),(220,100),(420,100),(420,260),(740,260),(740,100),(1020,100),(1020,380),(420,380),(420,500),(1200,500)]
         self.path_count = 0
         self.direction = ["R","U","R","D","R","U","R","D","L","D","R"]
