@@ -1,5 +1,9 @@
 import pygame
 
+"""
+遊戲名稱:大道不行
+"""
+
 if __name__ == '__main__':
     pygame.init
     pygame.display.set_caption("NTU Coconut Tower Defenser")
