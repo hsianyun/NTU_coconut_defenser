@@ -89,6 +89,28 @@ class Game:
         if self.moving_obj:
             self.moving_obj.draw(self.win)
 
+        #draw menu
+        self.shopmenu_def.draw(self.win)
+
+        #draw play pause button
+        self.pause_btn.draw(self.win)
+
+        #draw lives
+        text = self.life_font.render('x' + str(self.lifes_def),1, (255,255,255))
+        life = pygame.transform.scale(heart_img,(50,50))
+        start_x = 1050
+
+        self.win.blit(life, (start_x, 10))
+        self.win.blit(text, (start_x + life.get_width + 10, 10))
+
+        #draw money
+        text = self.life_font.render('x' + str(self.money_def),1, (255,255,255))
+        money = pygame.transform.scale(money_img,(50,50))
+        start_x = 1050
+
+        self.win.blit(money, (start_x, 65))
+        self.win.blit(text, (start_x + money.get_width + 10, 65))
+
         
     def add_tower(self, name):
         x, y = pygame.mouse.get_pos()
@@ -248,6 +270,19 @@ class pvpGame(Game):
                 self.money_atk -= cost
             except Exception as e:
                 print(str(e)+ 'NO VALID NAME')
+    
+    def draw(self):
+        super().draw()
+
+        #draw attacker money
+        text = self.life_font.render('x' + str(self.money_def),1, (255,255,255))
+        money = pygame.transform.scale(money_img,(50,50))
+        start_x = 110
+
+        self.win.blit(money, (start_x, 10))
+        self.win.blit(text, (start_x + money.get_width + 10, 10))
+
+        pygame.display.update()
 
         
         
@@ -367,3 +402,12 @@ class pveGame(Game):
                             self.attackers.append(wave_attackers[x])
                             self.current_wave -= 1
                             break
+    def draw(self):
+        super().draw()
+
+        #draw text
+        text = self.life_font.render('Wave '+str(self.wave), 1, (255,255,255))
+        start_x = 110
+        self.win.blit(text, (start_x, 10))
+
+        pygame.display.update()
