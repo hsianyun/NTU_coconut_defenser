@@ -91,7 +91,7 @@ class Defenser:
             
 class Sugar(Defenser):      #砂糖椰
     def __init__(self,x,y):
-        self.sugar = pygame.image.load(os.path.join('DefensersImage_matted', 'sugar')).convert_alpha()
+        self.sugar = pygame.image.load(os.path.join('DefensersImage_matted', 'sugar.png')).convert_alpha()
         self.sugar_1 = pygame.image.load(os.path.join('DefensersImage_matted', 'sugar-1.png')).convert_alpha()
         super().__init__(x,y,25,10,4,120,[self.sugar,self.sugar_1])
 

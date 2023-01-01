@@ -43,16 +43,17 @@ class PlayPauseButton(button):
     def __init__(self, play_img, pause_img, pos):
         self.play_img = play_img
         self.pause_img = pause_img
-        self.pos = pos
+        self.x = pos[0]
+        self.y = pos[1]
         self.width = self.play_img.get_width()
         self.height = self.play_img.get_height()
         self.isRunning = True
     
     def draw(self, win):
         if self.isRunning:
-            win.blit(self.pause_img, self.pos)
+            win.blit(self.pause_img, (self.x, self.y))
         else:
-            win.blit(self.play_img, self.pos)
+            win.blit(self.play_img, (self.x, self.y))
     
     def clicked(self):
         """

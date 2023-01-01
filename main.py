@@ -19,8 +19,8 @@ heart_img = pygame.image.load(os.path.join('game_assets', 'heart.png')).convert_
 # https://www.nicepng.com/downpng/u2t4i1o0i1a9t4u2_minecraft-heart-minecraft-health-bar-png/
 money_img = pygame.image.load(os.path.join('game_assets', 'money.png')).convert_alpha()
 # https://www.pinterest.com/pin/71846556533350928/
-shopbg_img = pygame.image.load(os.path.join('game_assets', 'shop_bg.png')).convert_alpha()
-shopbg_img2 = pygame.image.load(os.path.join('game_assets', 'shop_bg_2.png')).convert_alpha()
+shopbg_img = pygame.image.load(os.path.join('game_assets', 'shopbg_img.png')).convert_alpha()
+shopbg_img2 = pygame.image.load(os.path.join('game_assets', 'shopbg_img2.png')).convert_alpha()
 
 #檔案名待補
 buy_sugar = pygame.image.load(os.path.join('game_assets', 'sugar_buttom.png')).convert_alpha()
@@ -29,7 +29,7 @@ buy_golden = pygame.image.load(os.path.join('game_assets', 'golden_buttom.png'))
 buy_king = pygame.image.load(os.path.join('game_assets', 'king_buttom.png')).convert_alpha()
 buy_ice = pygame.image.load(os.path.join('game_assets', 'icecream_buttom.png')).convert_alpha()
 
-buy_pedestrian = pygame.image.load(os.path.join('game_assets', 'pedestrian_buttom.png')).convert_alpha()
+buy_pedestrian = pygame.image.load(os.path.join('game_assets', 'pedestrain_buttom.png')).convert_alpha()
 buy_bicycle = pygame.image.load(os.path.join('game_assets', 'bike_buttom.png')).convert_alpha()
 buy_skateboard = pygame.image.load(os.path.join('game_assets', 'skateboard_buttom.png')).convert_alpha()
 buy_car = pygame.image.load(os.path.join('game_assets', 'car_buttom.png')).convert_alpha()
@@ -58,7 +58,7 @@ class Game:
         self.bg = pygame.image.load(os.path.join("game_assets","mainmenu_bg.png"))
         self.bg = pygame.transform.scale(self.bg, resolution)
         self.timer = time.time()    #get present time
-        self.life_font = pygame.font.SysFont('comicsans', 65)
+        self.life_font = pygame.font.SysFont('comicsans', 20)
         self.moving_obj = None
         self.shopmenu_def = ShopMenu((1100,0), shopbg_img)
         self.shopmenu_def.add_btn(buy_sugar, 'buy_sugar', 90, 25)
@@ -101,9 +101,9 @@ class Game:
         text = self.life_font.render('x' + str(self.lifes_def),1, (255,255,255))
         life = pygame.transform.scale(heart_img,(50,50))
         start_x = 1050
-
+        life_width = life.get_width()
         self.win.blit(life, (start_x, 10))
-        self.win.blit(text, (start_x + life.get_width + 10, 10))
+        self.win.blit(text, (start_x + life_width + 10, 10))
 
         #draw money
         text = self.life_font.render('x' + str(self.money_def),1, (255,255,255))
@@ -111,7 +111,8 @@ class Game:
         start_x = 1050
 
         self.win.blit(money, (start_x, 65))
-        self.win.blit(text, (start_x + money.get_width + 10, 65))
+        money_width = money.get_width()
+        self.win.blit(text, (start_x + money_width + 10, 65))
 
         
     def add_tower(self, name):
@@ -208,7 +209,7 @@ class pvpGame(Game):
                             self.pause_btn.clicked()    #Modify the image of pause button
                         
                         #check if user is buying defenser
-                        shop_button = self.shopmenu_def.click()
+                        shop_button = self.shopmenu_def.click(pos)
                         if shop_button:
                             cost = self.shopmenu_def.get_cost(shop_button)
                             if self.money_def >= cost:
@@ -282,7 +283,10 @@ class pvpGame(Game):
         start_x = 110
 
         self.win.blit(money, (start_x, 10))
-        self.win.blit(text, (start_x + money.get_width + 10, 10))
+        money_width = money.get_width()
+        self.win.blit(text, (start_x + money_width + 10, 10))
+
+        self.shopmenu_atk.draw(self.win)
 
         pygame.display.update()
 
@@ -352,7 +356,7 @@ class pveGame(Game):
                             self.pause_btn.clicked()    #Modify the image of pause button
                         
                         #check if user is buying defenser
-                        shop_button = self.shopmenu_def.click()
+                        shop_button = self.shopmenu_def.click(pos)
                         if shop_button:
                             cost = self.shopmenu_def.get_cost(shop_button)
                             if self.money_def >= cost:
