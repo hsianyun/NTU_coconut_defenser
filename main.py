@@ -41,6 +41,7 @@ pause_btn = pygame.image.load(os.path.join('game_assets', 'pause_btn.png')).conv
 attacker_names = ["Pedestrian", "Bicycle", "Skateboard", "Car", "Shui_yuan_car", "Ambulance", "Student_Association"]
 defenser_names = ['Sugar', 'Winebottle', 'Golden', 'King', 'Ice']
 
+
 resolution = (1200, 600)    #The size of the window is (1200*600)
 
 class Game:
@@ -66,6 +67,9 @@ class Game:
         self.isRunning = True   #暫停時，仍可購買物品與調整位置
         self.pause_btn = PlayPauseButton(play_btn, pause_btn, (110,10))
         self.tick_count = 0
+        self.obstacles = [[0,100,0,420], [1100,1200,0,450], [0,240,480,520], [200,240,80,520],
+                        [200,440,80,120], [400,440,80,280],[400,760,240,280],[720,760,80,280],
+                        [720,1040,80,120],[1000,1040,80,400],[400,1040,360,400],[400,440,360,520],[400,1200,480,520]]
     
     def run(self):
         pass
@@ -102,8 +106,15 @@ class Game:
         except Exception as e:
             print(str(e) + '"NOT VALID NAME')
     
-    def is_valid(self, defenser):
-        return True
+    def is_valid(self, moving_obj):
+        valid = True
+        for obstacle in self.obstacles:
+            if obstacle[0] <= moving_obj.x <= obstacle[1]:
+                if obstacle[2] <= moving_obj.y <= obstacle[3]:
+                    valid = False
+                    break
+        
+        return valid
 
 class pvpGame(Game):
     def __init__(self, win, mode):
@@ -292,13 +303,8 @@ class pveGame(Game):
                     
                     #if you are moving a tower
                     if self.moving_obj:
-                        allowed = True
-
-                        for defenser in self.defensers:
-                            if defenser.collide(self.moving_obj):
-                                allowed = False
                         
-                        if allowed and self.is_valid(self.moving_obj):
+                        if not collide and self.is_valid(self.moving_obj):
                             self.defensers.append(self.moving_obj)
                             self.moving_obj = None
                     
