@@ -23,11 +23,11 @@ shopbg_img = pygame.image.load(os.path.join('game_assets', 'shop_bg.png')).conve
 shopbg_img2 = pygame.image.load(os.path.join('game_assets', 'shop_bg_2.png')).convert_alpha()
 
 #檔案名待補
-buy_sugar = pygame.image.load(os.path.join('game_assets', 'pause_btn.png')).convert_alpha()
-buy_wine = pygame.image.load(os.path.join('game_assets', 'pause_btn.png')).convert_alpha()
-buy_golden = pygame.image.load(os.path.join('game_assets', 'pause_btn.png')).convert_alpha()
-buy_king = pygame.image.load(os.path.join('game_assets', 'pause_btn.png')).convert_alpha()
-buy_ice = pygame.image.load(os.path.join('game_assets', 'pause_btn.png')).convert_alpha()
+buy_sugar = pygame.image.load(os.path.join('game_assets', 'sugar_buttom.png')).convert_alpha()
+buy_wine = pygame.image.load(os.path.join('game_assets', 'winebottle_buttom.png')).convert_alpha()
+buy_golden = pygame.image.load(os.path.join('game_assets', 'golden_buttom.png')).convert_alpha()
+buy_king = pygame.image.load(os.path.join('game_assets', 'king_buttom.png')).convert_alpha()
+buy_ice = pygame.image.load(os.path.join('game_assets', 'icecream_buttom.png')).convert_alpha()
 
 buy_pedestrian = pygame.image.load(os.path.join('game_assets', 'pedestrian_buttom.png')).convert_alpha()
 buy_bicycle = pygame.image.load(os.path.join('game_assets', 'bike_buttom.png')).convert_alpha()
