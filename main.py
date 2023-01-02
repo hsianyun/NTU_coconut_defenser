@@ -71,9 +71,10 @@ class Game:
         self.pause_btn = PlayPauseButton(play_btn, pause_btn, (10 ,550))
         self.tick_count = 0
         self.obstacles = [[0,100,0,420], [1100,1200,0,450], [0,240,480,520], [200,240,80,520],
-                        [200,440,80,120], [400,440,80,280],[400,760,240,280],[720,760,80,280],
-                        [720,1040,80,120],[1000,1040,80,400],[400,1040,360,400],[400,440,360,520],[400,1200,480,520],
+                        [200,440,80,120], [400,440,80,280],[400,800,240,280],[760,800,80,280],
+                        [760,1080,80,120],[1040,1080,80,400],[400,1080,360,400],[400,440,360,520],[400,1200,480,520],
                         [0,80,520,600]]
+                        #(0,500),(220,500),(220,100),(420,100),(420,260),(780,260),(780,100),(1060,100),(1060,380),(420,380),(420,500),(1200,500)
         self.grid_area = [[240,400,120,600], [420,1040,280,360],[760,1040,120,360],[0,1200,520,600]]
     
     def run(self):
@@ -420,7 +421,7 @@ class pveGame(Game):
                     self.wave_timer = time.time()
                     self.wave_timer_en = False
                 
-                if time.time() - self.wave_timer >= 20:
+                if time.time() - self.wave_timer >= 10:
                     self.wave += 1
                     self.current_wave = waves[self.wave]
                     self.wave_timer_en = True
@@ -436,7 +437,7 @@ class pveGame(Game):
         super().draw()
 
         #draw text
-        text = self.life_font.render('Wave '+str(self.wave), 1, (255,255,255))
+        text = self.life_font.render('Wave '+str(self.wave+1), 1, (255,255,255))
         start_x = 110
         self.win.blit(text, (start_x, 10))
 
