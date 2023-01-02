@@ -10,8 +10,8 @@ from ATTACKER import Attacker
 class Defenser:
     def __init__(self,x,y,price,rate,damage,Range,tower_imgs):
         self.imgs = tower_imgs
-        self.x = x + self.imgs[0].get_width()/2
-        self.y = y + self.imgs[0].get_height()/2
+        self.x = x #+ self.imgs[0].get_width()//2
+        self.y = y #+ self.imgs[0].get_height()//2
         self.price = price
         self.rate_of_fire = rate
         self.damage = damage
@@ -33,7 +33,7 @@ class Defenser:
             for attacker in attackers:    #攻擊目標判定
                 x = attacker.x
                 y = attacker.y
-                dis = math.sqrt((self.x - attacker.imgs[0].get_width()//2 - x)**2 + (self.y - attacker.imgs[0].get_height()//2 - y)**2)
+                dis = math.sqrt((self.x - x)**2 + (self.y - y)**2)
                 if dis < self.range: 
                     if dis < target_dis:
                         target = attacker
