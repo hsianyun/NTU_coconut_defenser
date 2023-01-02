@@ -59,6 +59,9 @@ class Game:
         self.bg = pygame.image.load(os.path.join("game_assets","background-PVP.png"))
         self.bg = pygame.transform.scale(self.bg, resolution)
         self.timer = time.time()    #get present time
+        self.start_time = time.time()
+        self.pausestart_timer = time.time()
+        self.pausetime = 0
         self.life_font = pygame.font.SysFont('comicsans', 20)
         self.moving_obj = None
         self.shopmenu_def = ShopMenu((1100,0), shopbg_img)
@@ -71,10 +74,10 @@ class Game:
         self.pause_btn = PlayPauseButton(play_btn, pause_btn, (10 ,550))
         self.tick_count = 0
         self.obstacles = [[0,100,0,420], [1100,1200,0,450], [0,240,480,520], [200,240,80,520],
-                        [200,440,80,120], [400,440,80,280],[400,760,240,280],[720,760,80,280],
-                        [720,1040,80,120],[1000,1040,80,400],[400,1040,360,400],[400,440,360,520],[400,1200,480,520],
+                        [200,440,80,120], [400,440,80,280],[400,800,240,280],[760,800,80,280],
+                        [760,1080,80,120],[1040,1080,80,400],[400,1080,360,400],[400,440,360,520],[400,1200,480,520],
                         [0,80,520,600]]
-        self.grid_area = [[240,400,120,600], [420,1040,280,360],[760,1040,120,360],[0,1200,520,600]]
+        self.grid_area = [[200,400,120,600], [420,1040,280,360],[760,1040,120,360],[0,1200,520,600]]
     
     def run(self):
         pass
@@ -139,11 +142,11 @@ class Game:
         except Exception as e:
             print(str(e) + '"NOT VALID NAME')
     
-    def is_valid(self, mouse_pos):
+    def is_valid(self, obj_pos):
         valid = True
         for obstacle in self.obstacles:
-            if obstacle[0] <= mouse_pos[0] <= obstacle[1]:
-                if obstacle[2] <= mouse_pos[1] <= obstacle[3]:
+            if obstacle[0] <= obj_pos[0] <= obstacle[1]:
+                if obstacle[2] <= obj_pos[1] <= obstacle[3]:
                     valid = False
                     break
         
@@ -161,7 +164,6 @@ class pvpGame(Game):
         self.shopmenu_atk.add_btn(buy_ambulance, "buy_ambulance", 60, 80)
         self.shopmenu_atk.add_btn(buy_sa, "buy_sa", 60, 6)
         self.money_atk = 0
-        self.start_time = time.time()
         self.bg = pygame.image.load(os.path.join("game_assets","background-PVP.png"))
         self.bg = pygame.transform.scale(self.bg, resolution)
     
@@ -214,13 +216,17 @@ class pvpGame(Game):
                             if defenser.collide(self.moving_obj):
                                 allowed = False
                         
-                        if allowed and self.is_valid(pos):
+                        if allowed and self.is_valid((self.moving_obj.x, self.moving_obj.y)):
                             self.defensers.append(self.moving_obj)
                             self.moving_obj = None
                     
                     else:
                         #check if you are pressing pause button
                         if self.pause_btn.click(pos):
+                            if self.isRunning:
+                                self.pausestart_timer = time.time()
+                            else:
+                                self.pausetime += time.time() - self.pausestart_timer
                             self.isRunning = not self.isRunning
                             self.pause_btn.clicked()    #Modify the image of pause button
                         
@@ -254,7 +260,7 @@ class pvpGame(Game):
                     print('Attacker Win!!')   #待改(加結束畫面)
                     run = False
 
-                if time.time() - self.start_time >= 300:
+                if time.time() - self.start_time - self.pausetime >= 300:
                     print('Defenser Win!!')
                     run = False    
 
@@ -369,13 +375,17 @@ class pveGame(Game):
                     #if you are moving a tower
                     if self.moving_obj:
                         
-                        if not collide and self.is_valid(pos):
+                        if not collide and self.is_valid((self.moving_obj.x, self.moving_obj.y)):
                             self.defensers.append(self.moving_obj)
                             self.moving_obj = None
                     
                     else:
                         #check if you are pressing pause button
                         if self.pause_btn.click(pos):
+                            if self.isRunning:
+                                self.pausestart_timer = time.time()
+                            else:
+                                self.pausetime += time.time() - self.pausestart_timer
                             self.isRunning = not self.isRunning
                             self.pause_btn.clicked()    #Modify the image of pause button
                         
@@ -403,6 +413,10 @@ class pveGame(Game):
 
                 if self.lifes_def <= 0:
                     print('You Lose')   #待改(加結束畫面)
+                    run = False
+
+                if time.time() - self.start_time - self.pausetime >= 300:
+                    print('Defenser Win!!')
                     run = False    
 
             self.tick_count += 1
@@ -420,7 +434,7 @@ class pveGame(Game):
                     self.wave_timer = time.time()
                     self.wave_timer_en = False
                 
-                if time.time() - self.wave_timer >= 20:
+                if time.time() - self.wave_timer >= 10:
                     self.wave += 1
                     self.current_wave = waves[self.wave]
                     self.wave_timer_en = True
@@ -436,7 +450,7 @@ class pveGame(Game):
         super().draw()
 
         #draw text
-        text = self.life_font.render('Wave '+str(self.wave), 1, (255,255,255))
+        text = self.life_font.render('Wave '+str(self.wave+1), 1, (255,255,255))
         start_x = 110
         self.win.blit(text, (start_x, 10))
 
