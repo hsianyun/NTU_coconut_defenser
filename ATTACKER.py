@@ -109,7 +109,7 @@ class Attacker:
         elif self.damage >= self.ini_blood and self.event == 2:
             attackers.remove(self)
             for attacker in attackers:
-                if math.sqrt((attacker.x - self.x)**2 + (attacker.y - self.y)**2) <= 70:
+                if math.sqrt((attacker.x - self.x)**2 + (attacker.y - self.y)**2) <= 300:
                     attacker.damage = 0
 
     @staticmethod
