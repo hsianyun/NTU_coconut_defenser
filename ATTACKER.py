@@ -98,7 +98,8 @@ class Attacker:
             
             for _ in range(3):
                 x_in, y_in = Attacker.positionjudge(self.x, self.y)
-                attackers.append(Bicycle((self.x, self.y), x_in, y_in)) # 新增腳踏車
+                print(x_in, y_in)
+                attackers.append(Bicycle((self.x // 2 * 2, self.y // 2 * 2), x_in, y_in)) # 新增腳踏車
 
             attackers.remove(self)
 
@@ -111,27 +112,27 @@ class Attacker:
     @staticmethod
     def positionjudge(x,y):
         if x >= 0 and x < 220 and y == 500:
-            return 0,0
+            return 0, 0
         elif x == 220 and x <= 500 and x > 100:
-            return 1,1
+            return 1, 1
         elif x >= 220 and x < 420 and y == 100:
-            return 2,2
+            return 2, 2
         elif x == 420 and y >= 100 and y < 260:
-            return 3,3
+            return 3, 3
         elif x >= 420 and x < 780 and y == 260:
-            return 4,4
+            return 4, 4
         elif x == 780 and y <= 260 and y > 100:
-            return 5,5
+            return 5, 5
         elif x >= 780 and x < 1060 and y == 100:
-            return 6,6
+            return 6, 6
         elif x == 1060 and y > 100 and y < 380:
-            return 7,7
+            return 7, 7
         elif x <= 1060 and x > 420 and y == 380:
-            return 8,8
+            return 8, 8
         elif x == 420 and y >= 380 and y < 500:
-            return 9,9
+            return 9, 9
         elif x >= 420 and x < 1200 and y == 500:
-            return 10,10
+            return 10, 10
     
 
 class Pedestrian(Attacker):
