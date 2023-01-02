@@ -55,7 +55,7 @@ class Game:
         self.defensers = []
         self.lifes_def = 140
         self.money_def = 25
-        self.bg = pygame.image.load(os.path.join("game_assets","background.png"))
+        self.bg = pygame.image.load(os.path.join("game_assets","background-PVP.png"))
         self.bg = pygame.transform.scale(self.bg, resolution)
         self.timer = time.time()    #get present time
         self.life_font = pygame.font.SysFont('comicsans', 20)
@@ -154,6 +154,8 @@ class pvpGame(Game):
         self.shopmenu_atk.add_btn(buy_sa, "buy_sa", 60, 6)
         self.money_atk = 0
         self.start_time = time.time()
+        self.bg = pygame.image.load(os.path.join("game_assets","background-PVP.png"))
+        self.bg = pygame.transform.scale(self.bg, resolution)
     
     def run(self):
         run = True  #If run == false -> game quit
@@ -301,6 +303,8 @@ class pveGame(Game):
         self.current_wave = waves[self.wave]
         self.wave_timer = time.time()
         self.wave_timer_en = True
+        self.bg = pygame.image.load(os.path.join("game_assets","background-PVE.png"))
+        self.bg = pygame.transform.scale(self.bg, resolution)
     
     def run(self):
         run = True  #If run == false -> game quit
