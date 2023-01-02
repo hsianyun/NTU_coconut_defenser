@@ -68,11 +68,13 @@ class Game:
         self.shopmenu_def.add_btn(buy_king, "buy_king", 90, 120)
         self.shopmenu_def.add_btn(buy_ice, "buy_ice", 90, 60)
         self.isRunning = True   #暫停時，仍可購買物品與調整位置
-        self.pause_btn = PlayPauseButton(play_btn, pause_btn, (110,10))
+        self.pause_btn = PlayPauseButton(play_btn, pause_btn, (10 ,550))
         self.tick_count = 0
         self.obstacles = [[0,100,0,420], [1100,1200,0,450], [0,240,480,520], [200,240,80,520],
                         [200,440,80,120], [400,440,80,280],[400,760,240,280],[720,760,80,280],
-                        [720,1040,80,120],[1000,1040,80,400],[400,1040,360,400],[400,440,360,520],[400,1200,480,520]]
+                        [720,1040,80,120],[1000,1040,80,400],[400,1040,360,400],[400,440,360,520],[400,1200,480,520],
+                        [0,80,520,600]]
+        self.grid_area = [[240,400,120,600], [420,1040,280,360],[760,1040,120,360],[0,1200,520,600]]
     
     def run(self):
         pass
@@ -100,31 +102,36 @@ class Game:
 
         #draw lives
         text = self.life_font.render('x' + str(self.lifes_def),1, (255,255,255))
-        life = pygame.transform.scale(heart_img,(50,50))
-        start_x = 1050
+        life = pygame.transform.scale(heart_img,(30,30))
+        start_x = 1000
         life_width = life.get_width()
         self.win.blit(life, (start_x, 10))
         self.win.blit(text, (start_x + life_width + 10, 10))
 
         #draw money
         text = self.life_font.render('x' + str(self.money_def),1, (255,255,255))
-        money = pygame.transform.scale(money_img,(50,50))
-        start_x = 1050
+        money = pygame.transform.scale(money_img,(30,30))
+        start_x = 1000
 
-        self.win.blit(money, (start_x, 65))
+        self.win.blit(money, (start_x, 50))
         money_width = money.get_width()
-        self.win.blit(text, (start_x + money_width + 10, 65))
+        self.win.blit(text, (start_x + money_width + 10, 50))
 
         
     def add_tower(self, name):
-        x, y = pygame.mouse.get_pos()
-        x_grid = (x // 80) * 80 + 60
-        y_grid = (y // 80) * 80 + 20
-        tower_dict = {"buy_sugar": Sugar(x_grid,y_grid),
-                     "buy_wine": Winebottle(x_grid,y_grid),
-                     "buy_golden": Golden(x_grid, y_grid), 
-                     "buy_king": King(x_grid, y_grid), 
-                     "buy_ice": Ice(x_grid, y_grid)}
+        pos = pygame.mouse.get_pos()
+        for area in self.grid_area:
+                if area[0] <= pos[0] <= area[1] and area[2] <= pos[1] <= area[3]:
+                    pos_grid = [(pos[0]//80)*80 + 20, (pos[1]//80)*80 + 60]
+                    break
+        else:
+            pos_grid = [(pos[0]//80)*80 + 60, (pos[1]//80)*80 + 20]
+
+        tower_dict = {"buy_sugar": Sugar(pos_grid[0],pos_grid[1]),
+                     "buy_wine": Winebottle(pos_grid[0],pos_grid[1]),
+                     "buy_golden": Golden(pos_grid[0], pos_grid[1]), 
+                     "buy_king": King(pos_grid[0], pos_grid[1]), 
+                     "buy_ice": Ice(pos_grid[0], pos_grid[1])}
         
         try:
             obj = tower_dict[name]
@@ -132,11 +139,11 @@ class Game:
         except Exception as e:
             print(str(e) + '"NOT VALID NAME')
     
-    def is_valid(self, moving_obj):
+    def is_valid(self, mouse_pos):
         valid = True
         for obstacle in self.obstacles:
-            if obstacle[0] <= moving_obj.x <= obstacle[1]:
-                if obstacle[2] <= moving_obj.y <= obstacle[3]:
+            if obstacle[0] <= mouse_pos[0] <= obstacle[1]:
+                if obstacle[2] <= mouse_pos[1] <= obstacle[3]:
                     valid = False
                     break
         
@@ -172,7 +179,12 @@ class pvpGame(Game):
                     self.money_atk += 1
             
             pos = pygame.mouse.get_pos()
-            pos_grid = [(pos[0]//80)*80 + 60, (pos[1]//80)*80 + 20]
+            for area in self.grid_area:
+                if area[0] <= pos[0] <= area[1] and area[2] <= pos[1] <= area[3]:
+                    pos_grid = [(pos[0]//80)*80 + 20, (pos[1]//80)*80 + 60]
+                    break
+            else:
+                pos_grid = [(pos[0]//80)*80 + 60, (pos[1]//80)*80 + 20]
             
             #check for moving object and add color under it
             if self.moving_obj:
@@ -202,7 +214,7 @@ class pvpGame(Game):
                             if defenser.collide(self.moving_obj):
                                 allowed = False
                         
-                        if allowed and self.is_valid(self.moving_obj):
+                        if allowed and self.is_valid(pos):
                             self.defensers.append(self.moving_obj)
                             self.moving_obj = None
                     
@@ -283,7 +295,7 @@ class pvpGame(Game):
 
         #draw attacker money
         text = self.life_font.render('x' + str(self.money_atk),1, (255,255,255))
-        money = pygame.transform.scale(money_img,(50,50))
+        money = pygame.transform.scale(money_img,(30,30))
         start_x = 110
 
         self.win.blit(money, (start_x, 10))
@@ -327,7 +339,12 @@ class pveGame(Game):
                     self.gen_attacker()
             
             pos = pygame.mouse.get_pos()
-            pos_grid = [(pos[0]//80)*80 +60, (pos[1]//80)*80 +20]
+            for area in self.grid_area:
+                if area[0] <= pos[0] <= area[1] and area[2] <= pos[1] <= area[3]:
+                    pos_grid = [(pos[0]//80)*80 + 20, (pos[1]//80)*80 + 60]
+                    break
+            else:
+                pos_grid = [(pos[0]//80)*80 + 60, (pos[1]//80)*80 + 20]
             
             #check for moving object and add color under it
             if self.moving_obj:
@@ -352,7 +369,7 @@ class pveGame(Game):
                     #if you are moving a tower
                     if self.moving_obj:
                         
-                        if not collide and self.is_valid(self.moving_obj):
+                        if not collide and self.is_valid(pos):
                             self.defensers.append(self.moving_obj)
                             self.moving_obj = None
                     
