@@ -118,8 +118,8 @@ class Game:
         
     def add_tower(self, name):
         x, y = pygame.mouse.get_pos()
-        x_grid = (x // 40) * 40 + 20
-        y_grid = (y // 40) * 40 + 20
+        x_grid = (x // 80) * 80 + 60
+        y_grid = (y // 80) * 80 + 20
         tower_dict = {"buy_sugar": Sugar(x_grid,y_grid),
                      "buy_wine": Winebottle(x_grid,y_grid),
                      "buy_golden": Golden(x_grid, y_grid), 
@@ -165,13 +165,14 @@ class pvpGame(Game):
         while run:
             clock.tick(FPS)
 
-            #Add money in rate of $5 per second
-            if self.tick_count % 12 == 0:
-                self.money_def += 1
-                self.money_atk += 1
+            if self.isRunning:
+                #Add money in rate of $5 per second
+                if self.tick_count % 12 == 0:
+                    self.money_def += 1
+                    self.money_atk += 1
             
             pos = pygame.mouse.get_pos()
-            pos_grid = [(pos[0]//40)*40 + 20, (pos[1]//40)*40 + 20]
+            pos_grid = [(pos[0]//80)*80 + 60, (pos[1]//80)*80 + 20]
             
             #check for moving object and add color under it
             if self.moving_obj:
@@ -314,9 +315,10 @@ class pveGame(Game):
         while run:
             clock.tick(FPS)
 
-            #Add money in rate of $5 per second
-            if self.tick_count % 12 == 0:
-                self.money_def += 1
+            if self.isRunning:
+                #Add money in rate of $5 per second
+                if self.tick_count % 12 == 0:
+                    self.money_def += 1
 
             #Controll the generate of attacker
             if self.isRunning :
@@ -325,7 +327,7 @@ class pveGame(Game):
                     self.gen_attacker()
             
             pos = pygame.mouse.get_pos()
-            pos_grid = [(pos[0]//40)*40 +20, (pos[1]//40)*40 +20]
+            pos_grid = [(pos[0]//80)*80 +60, (pos[1]//80)*80 +20]
             
             #check for moving object and add color under it
             if self.moving_obj:
