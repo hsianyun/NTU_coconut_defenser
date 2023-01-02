@@ -74,8 +74,7 @@ class Game:
                         [200,440,80,120], [400,440,80,280],[400,800,240,280],[760,800,80,280],
                         [760,1080,80,120],[1040,1080,80,400],[400,1080,360,400],[400,440,360,520],[400,1200,480,520],
                         [0,80,520,600]]
-                        #(0,500),(220,500),(220,100),(420,100),(420,260),(780,260),(780,100),(1060,100),(1060,380),(420,380),(420,500),(1200,500)
-        self.grid_area = [[240,400,120,600], [420,1040,280,360],[760,1040,120,360],[0,1200,520,600]]
+        self.grid_area = [[200,400,120,600], [420,1040,280,360],[760,1040,120,360],[0,1200,520,600]]
     
     def run(self):
         pass
@@ -140,11 +139,11 @@ class Game:
         except Exception as e:
             print(str(e) + '"NOT VALID NAME')
     
-    def is_valid(self, mouse_pos):
+    def is_valid(self, obj_pos):
         valid = True
         for obstacle in self.obstacles:
-            if obstacle[0] <= mouse_pos[0] <= obstacle[1]:
-                if obstacle[2] <= mouse_pos[1] <= obstacle[3]:
+            if obstacle[0] <= obj_pos[0] <= obstacle[1]:
+                if obstacle[2] <= obj_pos[1] <= obstacle[3]:
                     valid = False
                     break
         
@@ -215,7 +214,7 @@ class pvpGame(Game):
                             if defenser.collide(self.moving_obj):
                                 allowed = False
                         
-                        if allowed and self.is_valid(pos):
+                        if allowed and self.is_valid((self.moving_obj.x, self.moving_obj.y)):
                             self.defensers.append(self.moving_obj)
                             self.moving_obj = None
                     
@@ -370,7 +369,7 @@ class pveGame(Game):
                     #if you are moving a tower
                     if self.moving_obj:
                         
-                        if not collide and self.is_valid(pos):
+                        if not collide and self.is_valid((self.moving_obj.x, self.moving_obj.y)):
                             self.defensers.append(self.moving_obj)
                             self.moving_obj = None
                     
