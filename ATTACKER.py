@@ -102,7 +102,6 @@ class Attacker:
             
             for _ in range(3):
                 x_in, y_in = Attacker.positionjudge(self.x, self.y)
-                print(x_in, y_in)
                 attackers.append(Bicycle((self.x // 2 * 2, self.y // 2 * 2), x_in, y_in)) # 新增腳踏車
 
             attackers.remove(self)

@@ -120,8 +120,8 @@ class Game:
         self.win.blit(money, (start_x, 50))
         money_width = money.get_width()
         self.win.blit(text, (start_x + money_width + 10, 50))
-
-        self.curtime = time.time() -self.start_time - self.pausetime
+        if self.isRunning:
+            self.curtime = time.time() -self.start_time - self.pausetime
         text = self.life_font.render(f'time: {self.curtime:.1f}',1, (255,255,255))
         self.win.blit(text, (60, self.height-text.get_height()-10))
         
