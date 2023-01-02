@@ -48,6 +48,8 @@ class Defenser:
                     Attacker.hit(target,self.damage,attackers)
                 if self.rate_of_fire >= 20:
                     self.modetick = 5
+                elif self.rate_of_fire == 5:
+                    self.modetick = 12
                 else: self.modetick = 8
             else:
                 self.tick_count = 0  #沒有攻擊目標則重置tick 
@@ -135,7 +137,7 @@ class Ice(Defenser):     #杜老椰
         self.ice = pygame.transform.scale(self.ice, (80,80))
         self.ice_1 = pygame.image.load(os.path.join('DefensersImage_matted', 'icecream-1.png')).convert_alpha()
         self.ice_1 = pygame.transform.scale(self.ice_1, (80,80))
-        super().__init__(x,y,60,20,1,210,[self.ice,self.ice_1])
+        super().__init__(x,y,60,20,1,180,[self.ice,self.ice_1])
 
 
     
