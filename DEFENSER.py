@@ -129,7 +129,7 @@ class King(Defenser):     #大王椰
         self.king = pygame.transform.scale(self.king, (80,80))
         self.king_1 = pygame.image.load(os.path.join('DefensersImage_matted', 'king-1.png')).convert_alpha()
         self.king_1 = pygame.transform.scale(self.king_1, (80,80))
-        super().__init__(x,y,120,5,25,80,[self.king,self.king_1])
+        super().__init__(x,y,120,5,25,85,[self.king,self.king_1])
 
 class Ice(Defenser):     #杜老椰
     def __init__(self,x,y):

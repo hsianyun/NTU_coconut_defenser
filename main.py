@@ -54,7 +54,7 @@ class Game:
         self.width, self.height = resolution
         self.attackers = []
         self.defensers = []
-        self.lifes_def = 140
+        self.lifes_def = 40
         self.money_def = 25
         self.bg = pygame.image.load(os.path.join("game_assets","background-PVP.png"))
         self.bg = pygame.transform.scale(self.bg, resolution)
@@ -122,8 +122,8 @@ class Game:
         self.win.blit(text, (start_x + money_width + 10, 50))
         if self.isRunning:
             self.curtime = time.time() -self.start_time - self.pausetime
-        text = self.life_font.render(f'time: {self.curtime:.1f}',1, (255,255,255))
-        self.win.blit(text, (60, self.height-text.get_height()-10))
+        text = self.life_font.render(f'Time: {self.curtime:.1f}s',1, (255,255,255))
+        self.win.blit(text, (70, self.height-text.get_height()-10))
         
     def add_tower(self, name):
         pos = pygame.mouse.get_pos()
