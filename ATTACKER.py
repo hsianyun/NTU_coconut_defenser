@@ -70,8 +70,8 @@ class Attacker:
         length = 50
         health_bar = round(length * (self.ini_blood - self.damage) // self.ini_blood)
 
-        pygame.draw.rect(win, (255,0,0), (self.x-30, self.y-75, length, 10), 0)
-        pygame.draw.rect(win, (0, 255, 0), (self.x-30, self.y - 75, health_bar, 10), 0)
+        pygame.draw.rect(win, (255,0,0), (self.x - 25, self.y - 35, length, 10), 0)
+        pygame.draw.rect(win, (0, 255, 0), (self.x - 25, self.y - 35, health_bar, 10), 0)
 
 
     # 受到攻擊扣血的機制並偵測是否死亡
