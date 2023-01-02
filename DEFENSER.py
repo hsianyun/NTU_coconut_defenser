@@ -24,7 +24,7 @@ class Defenser:
 
     def draw(self,win):   #顯示defenser圖片
         img = self.imgs[self.attack_mode]
-        win.blit(img, (self.x-img.get_width()//2, self.y-img.get_height()//2))
+        win.blit(img, (self.x-img.get_width()//4, self.y-img.get_height()//4))
 
     def attack(self, attackers):
         target_dis = 10000000
