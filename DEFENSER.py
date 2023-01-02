@@ -28,7 +28,7 @@ class Defenser:
 
     def attack(self, attackers):
         target_dis = 10000000
-        if self.tick_count % (180//self.rate_of_fire) == 0:
+        if self.tick_count % (720//self.rate_of_fire) == 0:
             self.tick_count += 1
             for attacker in attackers:    #攻擊目標判定
                 x = attacker.x
@@ -95,7 +95,7 @@ class Sugar(Defenser):      #砂糖椰
         self.sugar = pygame.transform.scale(self.sugar, (80,80))
         self.sugar_1 = pygame.image.load(os.path.join('DefensersImage_matted', 'sugar-1.png')).convert_alpha()
         self.sugar_1 = pygame.transform.scale(self.sugar_1, (80,80))
-        super().__init__(x,y,25,10,4,120,[self.sugar,self.sugar_1])
+        super().__init__(x,y,25,12,4,120,[self.sugar,self.sugar_1])
 
 class Winebottle(Defenser):  #酒瓶椰
     def __init__(self,x,y):
