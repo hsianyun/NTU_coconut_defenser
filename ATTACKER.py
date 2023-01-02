@@ -36,7 +36,14 @@ class Attacker:
     # 畫圖
     def draw(self,win):
         self.img = self.imgs[self.animation_count]
-
+        if self.direction[self.direction_count] == "L":
+            self.img = pygame.transform.rotate(self.img, 270)
+        elif self.direction[self.direction_count] == "D":
+            self.img = pygame.transform.rotate(self.img, 0)
+        elif self.direction[self.direction_count] == "R":
+            self.img = pygame.transform.rotate(self.img, 90)
+        elif self.direction[self.direction_count] == "U":
+            self.img = pygame.transform.rotate(self.img, 180)
         win.blit(self.img,(self.x - self.img.get_width()//2, self.y- self.img.get_height()//2))
         self.draw_health_bar(win)
     
@@ -81,6 +88,7 @@ class Attacker:
             self.shield -= 1
         elif damage == 1: # 杜老椰攻擊力1
             self.ice_count = 0 # 停30clk
+            self.damage += damage
         else:
             self.damage += damage
         # 死亡判定和特殊技能
