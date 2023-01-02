@@ -3,6 +3,7 @@ import os
 from ATTACKER import Pedestrian, Bicycle, Shui_yuan_car, Skateboard, Car, Ambulance, Student_Association
 from DEFENSER import Sugar, Winebottle, Golden, King, Ice
 from menu import PlayPauseButton, ShopMenu
+from endscene import Endscene, PveEndscene
 import time
 import random
 pygame.font.init()
@@ -266,11 +267,17 @@ class pvpGame(Game):
                     defenser.attack(self.attackers)
 
                 if self.lifes_def <= 0:
-                    print('Attacker Win!!')   #待改(加結束畫面)
+                    print('Attacker Wins!!')   #待改(加結束畫面)
+                    endscene = Endscene(self.win, 'Attacker')
+                    endscene.run()
+                    del endscene
                     run = False
 
                 if time.time() - self.start_time - self.pausetime >= 300:
-                    print('Defenser Win!!')
+                    print('Defenser Wins!!')
+                    endscene = Endscene(self.win, 'Defenser')
+                    endscene.run()
+                    del endscene
                     run = False    
 
             self.tick_count += 1
@@ -422,10 +429,16 @@ class pveGame(Game):
 
                 if self.lifes_def <= 0:
                     print('You Lose')   #待改(加結束畫面)
+                    endscene = PveEndscene(self.win, '')
+                    endscene.run()
+                    del endscene
                     run = False
 
                 if time.time() - self.start_time - self.pausetime >= 600:
-                    print('Defenser Win!!')
+                    print('Defenser Wins!!')
+                    endscene = Endscene(self.win, '')
+                    endscene.run()
+                    del endscene
                     run = False    
 
             self.tick_count += 1

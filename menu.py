@@ -102,6 +102,4 @@ class ShopMenu:
         
         return None
 
-class endscene:
-    pass
 
