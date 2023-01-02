@@ -13,6 +13,7 @@ class MainMenu:
         self.height = 600
         self.bg = pygame.image.load(os.path.join('game_assets', 'mainmenu_bg.png'))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
+        self.logo = pygame.image.load(os.path.join('game_assets','logo.png'))
         self.win = win
         self.mode = 'PvP'
         self.btn_start = (self.width//2-start_btn.get_width()//2, 495, start_btn.get_width(), start_btn.get_height())
@@ -62,6 +63,7 @@ class MainMenu:
     
     def draw(self):
         self.win.blit(self.bg,(0,0))
+        self.win.blit(self.logo,(self.width//2 - self.logo.get_width()//2, 50))
         self.win.blit(mode_PvE_btn, (self.pve_btn_start,405))
         self.win.blit(mode_PvP_btn, (625,405))
         self.win.blit(start_btn, (self.btn_start[0], self.btn_start[1]))
