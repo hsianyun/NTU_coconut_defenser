@@ -53,14 +53,14 @@ class Defenser:
             self.attack_mode = 0
 
     def explode(self,target,attackers):  #大王椰範圍傷害
-        x1 = target.x + target.imgs[0].get_width()//2
-        y1 = target.y + target.imgs[0].get_height()//2
+        x1 = target.x
+        y1 = target.y
         for attacker in attackers:
             if target != attacker:
-                x2 = attacker.x + attacker.imgs[0].get_width()//2
-                y2 = attacker.y + attacker.imgs[0].get_height()//2
+                x2 = attacker.x # + attacker.imgs[0].get_width()//2
+                y2 = attacker.y # + attacker.imgs[0].get_height()//2
                 dis = math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
-                if dis < 130:
+                if dis < 80:
                     Attacker.hit(attacker,25,attackers)
 
     def move(self, pos):
