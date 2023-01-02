@@ -299,7 +299,7 @@ class pvpGame(Game):
                                 if event.key == pygame.K_SPACE:
                                     wait = False
                             
-                        text = self.title_font.render(f'Attacker Wins!!', 1, (255,255,255))
+                        text = self.title_font.render(f'Defenser Wins!!', 1, (255,255,255))
                         self.win.blit(text, (self.width//2 - text.get_width()//2, self.height//2 - text.get_height()//2))
                         text2 = self.hint_font.render('Press SPACE to continue.', 1, (255,255,255))
                         self.win.blit(text2, (self.width//2 - text2.get_width()//2, 450))
