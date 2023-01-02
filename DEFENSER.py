@@ -21,6 +21,7 @@ class Defenser:
         self.tick_count = 0
         self.place_color = (0,0,255,100)    #綠色，透明度100
         self.attack_mode = 0  #沒攻擊時0，攻擊時1
+        self.modetick = 0
 
     def draw(self,win):   #顯示defenser圖片
         img = self.imgs[self.attack_mode]
@@ -39,15 +40,19 @@ class Defenser:
                         target = attacker
                         target_dis = dis
             if target_dis < 10000000:
-                self.attack_mode = 1 
+                self.attack_mode = 1
                 if self.damage == 25:
                     Attacker.hit(target,self.damage,attackers)
                     self.explode(target,attackers)
                 else:
                     Attacker.hit(target,self.damage,attackers)
+                self.modetick = 5
             else:
                 self.tick_count = 0  #沒有攻擊目標則重置tick 
                 self.attack_mode = 0
+        elif self.modetick > 0:
+            self.modetick -= 1
+            self.attack_mode = 1
         else:
             self.tick_count += 1
             self.attack_mode = 0
