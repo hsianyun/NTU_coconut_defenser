@@ -1,2 +1,16 @@
-# 大道步行 (NTU Boulevard is dangerous)
-This is the 
+# 大道步行 (NTU Boulevard is dangerous)  
+## 遊戲須知  
+首先請安裝 requirements.txt 內的模組 (pygame)  
+接著啟動 start.py 即可開始遊戲  
+  
+## 遊戲操控PvE  
+於商店欄單擊滑鼠左鍵，放開後即可移動鼠標至欲放塔的位置，再次單擊滑鼠左鍵即可放置  
+  
+## 遊戲操控PvP  
+防守方：使用滑鼠操控，方法與PvE模式同  
+攻擊方：單擊鍵盤1~7(商店欄由上往下數)，可在起點產生攻擊者  
+  
+## 勝利條件  
+PvE：守住15波攻勢或成功抵抗10分鐘  
+PvP攻方：在五分鐘內使守方生命值歸零  
+PvP守方：守住五分鐘  
