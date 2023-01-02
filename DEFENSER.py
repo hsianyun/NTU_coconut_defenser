@@ -28,7 +28,7 @@ class Defenser:
 
     def attack(self, attackers):
         target_dis = 10000000
-        if self.tick_count % (960//self.rate_of_fire) == 0:
+        if self.tick_count % (180//self.rate_of_fire) == 0:
             self.tick_count += 1
             for attacker in attackers:    #攻擊目標判定
                 x = attacker.x
