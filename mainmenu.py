@@ -16,8 +16,9 @@ class MainMenu:
         self.win = win
         self.mode = 'PvP'
         self.btn_start = (self.width/2-start_btn.get_width()/2, 450, start_btn.get_width(), start_btn.get_height())
-        self.btn_PvE = (400, 350, mode_PvE_btn.get_width(), mode_PvE_btn.get_height())
-        self.btn_PvP = (800, 350, mode_PvP_btn.get_width(), mode_PvP_btn.get_height())
+        self.pve_btn_start = 550 - mode_PvE_btn.get_width()
+        self.btn_PvE = (self.pve_btn_start, 350, mode_PvE_btn.get_width(), mode_PvE_btn.get_height())
+        self.btn_PvP = (650, 350, mode_PvP_btn.get_width(), mode_PvP_btn.get_height())
         self.font = pygame.font.SysFont('Calibri', 50)
         self.modetext = self.font.render(self.mode, True, (0,0,0))
 
@@ -61,8 +62,8 @@ class MainMenu:
     
     def draw(self):
         self.win.blit(self.bg,(0,0))
-        self.win.blit(mode_PvE_btn, (400,350))
-        self.win.blit(mode_PvP_btn, (800,350))
+        self.win.blit(mode_PvE_btn, (self.pve_btn_start,350))
+        self.win.blit(mode_PvP_btn, (650,350))
         self.win.blit(start_btn, (self.btn_start[0], self.btn_start[1]))
         self.win.blit(self.modetext, (self.width//2 - self.modetext.get_width()//2, 300))
         pygame.display.update()
