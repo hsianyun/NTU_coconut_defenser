@@ -3,7 +3,6 @@ import os
 from ATTACKER import Pedestrian, Bicycle, Shui_yuan_car, Skateboard, Car, Ambulance, Student_Association
 from DEFENSER import Sugar, Winebottle, Golden, King, Ice
 from menu import PlayPauseButton, ShopMenu
-from endscene import Endscene, PveEndscene
 import time
 import random
 pygame.font.init()
