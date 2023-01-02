@@ -46,13 +46,16 @@ class Defenser:
                     self.explode(target,attackers)
                 else:
                     Attacker.hit(target,self.damage,attackers)
-                self.modetick = 5
+                if self.rate_of_fire >= 20:
+                    self.modetick = 5
+                else: self.modetick = 8
             else:
                 self.tick_count = 0  #沒有攻擊目標則重置tick 
                 self.attack_mode = 0
         elif self.modetick > 0:
             self.modetick -= 1
             self.attack_mode = 1
+            self.tick_count += 1
         else:
             self.tick_count += 1
             self.attack_mode = 0
