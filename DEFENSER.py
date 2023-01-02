@@ -9,8 +9,9 @@ from ATTACKER import Attacker
 
 class Defenser:
     def __init__(self,x,y,price,rate,damage,Range,tower_imgs):
-        self.x = x
-        self.y = y
+        self.imgs = tower_imgs
+        self.x = x + self.imgs[0].get_width()/2
+        self.y = y + self.imgs[0].get_height()/2
         self.price = price
         self.rate_of_fire = rate
         self.damage = damage
@@ -19,7 +20,6 @@ class Defenser:
         self.height = 80
         self.tick_count = 0
         self.place_color = (0,0,255,100)    #綠色，透明度100
-        self.imgs = tower_imgs
         self.attack_mode = 0  #沒攻擊時0，攻擊時1
 
     def draw(self,win):   #顯示defenser圖片
@@ -57,9 +57,9 @@ class Defenser:
         y1 = target.y + target.imgs[0].get_height()//2
         for attacker in attackers:
             if target != attacker:
-                x2 = attacker.x + attacker.img.get_width()//2
-                y2 = attacker.y + attacker.img.get_height()//2
-                dis = math.sqrt((x1 - x2)**2 + (y1-y2)**2)
+                x2 = attacker.x + attacker.imgs[0].get_width()//2
+                y2 = attacker.y + attacker.imgs[0].get_height()//2
+                dis = math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
                 if dis < 1000:
                     Attacker.hit(attacker,120,attackers)
 
