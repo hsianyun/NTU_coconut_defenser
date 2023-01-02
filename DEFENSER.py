@@ -60,7 +60,7 @@ class Defenser:
                 x2 = attacker.x + attacker.imgs[0].get_width()//2
                 y2 = attacker.y + attacker.imgs[0].get_height()//2
                 dis = math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
-                if dis < 250:
+                if dis < 130:
                     Attacker.hit(attacker,25,attackers)
 
     def move(self, pos):
