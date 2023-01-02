@@ -62,6 +62,7 @@ class Game:
         self.start_time = time.time()
         self.pausestart_timer = time.time()
         self.pausetime = 0
+        self.curtime  = time.time() -self.start_time - self.pausetime
         self.life_font = pygame.font.SysFont('comicsans', 20)
         self.moving_obj = None
         self.shopmenu_def = ShopMenu((1100,0), shopbg_img)
@@ -120,6 +121,9 @@ class Game:
         money_width = money.get_width()
         self.win.blit(text, (start_x + money_width + 10, 50))
 
+        self.curtime = time.time() -self.start_time - self.pausetime
+        text = self.life_font.render(f'time: {self.curtime:.1f}',1, (255,255,255))
+        self.win.blit(text, (60, self.height-text.get_height()-10))
         
     def add_tower(self, name):
         pos = pygame.mouse.get_pos()
@@ -178,7 +182,12 @@ class pvpGame(Game):
                 #Add money in rate of $5 per second
                 if self.tick_count % 12 == 0:
                     self.money_def += 1
-                    self.money_atk += 1
+                    if self.curtime < 150:
+                        self.money_atk += 1
+                    elif 150 <= self.curtime < 240:
+                        self.money_atk += 2
+                    else:
+                        self.money_atk += 4
             
             pos = pygame.mouse.get_pos()
             for area in self.grid_area:
@@ -415,7 +424,7 @@ class pveGame(Game):
                     print('You Lose')   #待改(加結束畫面)
                     run = False
 
-                if time.time() - self.start_time - self.pausetime >= 300:
+                if time.time() - self.start_time - self.pausetime >= 600:
                     print('Defenser Win!!')
                     run = False    
 
@@ -434,8 +443,12 @@ class pveGame(Game):
                     self.wave_timer = time.time()
                     self.wave_timer_en = False
                 
-                if time.time() - self.wave_timer >= 10:
+                if time.time() - self.wave_timer >= 3:
                     self.wave += 1
+                    if self.wave >= 15:
+                        self.isRunning = False
+                        print('Defenser Wins!')
+                        return
                     self.current_wave = waves[self.wave]
                     self.wave_timer_en = True
             

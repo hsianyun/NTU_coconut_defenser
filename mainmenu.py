@@ -49,12 +49,12 @@ class MainMenu:
                     if self.btn_PvE[0] <= x <= self.btn_PvE[0] + self.btn_PvE[2]:
                         if self.btn_PvE[1] <= y <= self.btn_PvE[1] + self.btn_PvE[3]:
                             self.mode = 'PvE'
-                            self.modetext = self.font.render('Mode: '+self.mode, True, (0,0,0))
+                            self.modetext = self.font.render('Mode: '+self.mode, True, (96,78,52))
                     
                     if self.btn_PvP[0] <= x <= self.btn_PvP[0] + self.btn_PvP[2]:
                         if self.btn_PvP[1] <= y <= self.btn_PvP[1] + self.btn_PvP[3]:
                             self.mode = 'PvP'
-                            self.modetext = self.font.render('Mode: '+self.mode, True, (0,0,0))
+                            self.modetext = self.font.render('Mode: '+self.mode, True, (96,78,52))
                 
 
             self.draw()
@@ -63,7 +63,7 @@ class MainMenu:
     
     def draw(self):
         self.win.blit(self.bg,(0,0))
-        self.win.blit(self.logo,(self.width//2 - self.logo.get_width()//2, 50))
+        self.win.blit(self.logo,(self.width//2 - self.logo.get_width()//2, 100))
         self.win.blit(mode_PvE_btn, (self.pve_btn_start,405))
         self.win.blit(mode_PvP_btn, (625,405))
         self.win.blit(start_btn, (self.btn_start[0], self.btn_start[1]))
