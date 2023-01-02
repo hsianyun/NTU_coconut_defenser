@@ -42,7 +42,7 @@ class Attacker:
             self.img = pygame.transform.rotate(self.img, 0)
         elif self.direction[self.direction_count] == "R":
             self.img = pygame.transform.rotate(self.img, 90)
-        elif self.direction[self.direction_count] == "U": #testtesttest
+        elif self.direction[self.direction_count] == "U": 
             self.img = pygame.transform.rotate(self.img, 180)
         win.blit(self.img,(self.x - self.img.get_width()//2, self.y- self.img.get_height()//2))
         self.draw_health_bar(win)
@@ -205,5 +205,3 @@ class Student_Association(Attacker):
         self.imgs.append(pygame.transform.scale(
         pygame.image.load(os.path.join("AttackersImage_matted", "SA-2.png")).convert_alpha(),
         (self.width, self.height)))
-
-
