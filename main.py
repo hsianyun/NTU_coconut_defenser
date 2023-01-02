@@ -385,7 +385,7 @@ class pveGame(Game):
             if self.isRunning :
                 if time.time() - self.timer >= random.randrange(1,6)/3: #generate attacker in random time interval
                     self.timer = time.time()
-                    self.gen_attacker()
+                    run = self.gen_attacker()
             
             pos = pygame.mouse.get_pos()
             for area in self.grid_area:
@@ -512,10 +512,27 @@ class pveGame(Game):
                     if self.wave >= 15:
                         self.isRunning = False
                         print('Defenser Wins!')
-                        return
+                        wait = True
+                        while wait:
+                            for event in pygame.event.get():
+                                if event.type == pygame.QUIT:
+                                    wait = False
+
+                                if event.type == pygame.KEYDOWN:
+                                    if event.key == pygame.K_SPACE:
+                                        wait = False
+                                
+                            text = self.title_font.render(f'Defenser Wins!!', 1, (255,255,255))
+                            self.win.blit(text, (self.width//2 - text.get_width()//2, self.height//2 - text.get_height()//2))
+                            text2 = self.hint_font.render('Press SPACE to continue.', 1, (255,255,255))
+                            self.win.blit(text2, (self.width//2 - text2.get_width()//2, 450))
+                            pygame.display.update()
+                        
+                        return False
                     self.current_wave = waves[self.wave]
                     self.wave_timer_en = True
-            
+                    
+
         else:
             wave_attackers = [Pedestrian(), Bicycle(), Skateboard(), Car(), Shui_yuan_car(), Ambulance(), Student_Association()]
             for x in range(len(self.current_wave)):
@@ -523,6 +540,9 @@ class pveGame(Game):
                     self.attackers.append(wave_attackers[x])
                     self.current_wave[x] -= 1
                     break
+            
+        return True
+
     def draw(self):
         super().draw()
 
