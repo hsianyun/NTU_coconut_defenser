@@ -15,14 +15,14 @@ import math
 
 
 class Attacker:
-    def __init__(self, pos= (0, 500)):
+    def __init__(self, pos= (0, 500), pc = 0, dc = 0):
         self.damage = 0
         self.width = 40
         self.height = 40
         self.path = [(0,500),(220,500),(220,100),(420,100),(420,260),(780,260),(780,100),(1060,100),(1060,380),(420,380),(420,500),(1200,500)]
-        self.path_count = 0
+        self.path_count = pc
         self.direction = ["R","U","R","D","R","U","R","D","L","D","R"]
-        self.direction_count = 0
+        self.direction_count = dc
         self.ice_count = -1
         self.shield = 0
         self.event = 0  # 特殊事件 1是水源車 2是救護車
@@ -97,7 +97,8 @@ class Attacker:
         elif self.damage >= self.ini_blood and self.event == 1:
             
             for _ in range(3):
-                attackers.append(Bicycle((self.x, self.y))) # 新增腳踏車
+                x_in, y_in = Attacker.positionjudge(self.x, self.y)
+                attackers.append(Bicycle((self.x, self.y), x_in, y_in)) # 新增腳踏車
 
             attackers.remove(self)
 
@@ -106,13 +107,36 @@ class Attacker:
             for attacker in attackers:
                 if math.sqrt((attacker.x - self.x)**2 + (attacker.y - self.y)**2) <= 70:
                     attacker.damage = 0
-        
 
-
+    @staticmethod
+    def positionjudge(x,y):
+        if x >= 0 and x < 220 and y == 500:
+            return 0,0
+        elif x == 220 and x <= 500 and x > 100:
+            return 1,1
+        elif x >= 220 and x < 420 and y == 100:
+            return 2,2
+        elif x == 420 and y >= 100 and y < 260:
+            return 3,3
+        elif x >= 420 and x < 780 and y == 260:
+            return 4,4
+        elif x == 780 and y <= 260 and y > 100:
+            return 5,5
+        elif x >= 780 and x < 1060 and y == 100:
+            return 6,6
+        elif x == 1060 and y > 100 and y < 380:
+            return 7,7
+        elif x <= 1060 and x > 420 and y == 380:
+            return 8,8
+        elif x == 420 and y >= 380 and y < 500:
+            return 9,9
+        elif x >= 420 and x < 1200 and y == 500:
+            return 10,10
+    
 
 class Pedestrian(Attacker):
-    def __init__(self,pos = (0,500)):
-        super().__init__(pos)
+    def __init__(self):
+        super().__init__()
         self.price = 2
         self.ini_blood = 10
         self.power = 1
@@ -126,8 +150,8 @@ class Pedestrian(Attacker):
 
 
 class Bicycle(Attacker):
-    def __init__(self,pos=(0,500)):
-        super().__init__(pos)
+    def __init__(self,pos=(0,500),pc = 0, dc = 0):
+        super().__init__(pos, pc, dc)
         self.price = 10
         self.ini_blood = 30
         self.power = 2
@@ -188,7 +212,6 @@ class Ambulance(Attacker):
         self.imgs.append(pygame.transform.scale(
         pygame.image.load(os.path.join("AttackersImage_matted", "ambulance.png")).convert_alpha(),
         (self.width, self.height)))
-
 
 
 class Student_Association(Attacker):
