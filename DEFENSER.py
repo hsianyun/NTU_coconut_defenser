@@ -10,8 +10,8 @@ from ATTACKER import Attacker
 class Defenser:
     def __init__(self,x,y,price,rate,damage,Range,tower_imgs):
         self.imgs = tower_imgs
-        self.x = x + self.imgs[0].get_width()/2
-        self.y = y + self.imgs[0].get_height()/2
+        self.x = x #+ self.imgs[0].get_width()//2
+        self.y = y #+ self.imgs[0].get_height()//2
         self.price = price
         self.rate_of_fire = rate
         self.damage = damage
@@ -24,7 +24,7 @@ class Defenser:
 
     def draw(self,win):   #顯示defenser圖片
         img = self.imgs[self.attack_mode]
-        win.blit(img, (self.x, self.y))
+        win.blit(img, (self.x-img.get_width()//2, self.y-img.get_height()//2))
 
     def attack(self, attackers):
         target_dis = 10000000
@@ -33,7 +33,7 @@ class Defenser:
             for attacker in attackers:    #攻擊目標判定
                 x = attacker.x
                 y = attacker.y
-                dis = math.sqrt((self.x - attacker.imgs[0].get_width()//2 - x)**2 + (self.y - attacker.imgs[0].get_height()//2 - y)**2)
+                dis = math.sqrt((self.x - x)**2 + (self.y - y)**2)
                 if dis < self.range: 
                     if dis < target_dis:
                         target = attacker
@@ -53,12 +53,12 @@ class Defenser:
             self.attack_mode = 0
 
     def explode(self,target,attackers):  #大王椰範圍傷害
-        x1 = target.x
-        y1 = target.y
+        x1 = target.x + target.imgs[0].get_width()//2
+        y1 = target.y + target.imgs[0].get_height()//2
         for attacker in attackers:
             if target != attacker:
-                x2 = attacker.x # + attacker.imgs[0].get_width()//2
-                y2 = attacker.y # + attacker.imgs[0].get_height()//2
+                x2 = attacker.x + attacker.imgs[0].get_width()//2
+                y2 = attacker.y + attacker.imgs[0].get_height()//2
                 dis = math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
                 if dis < 80:
                     Attacker.hit(attacker,25,attackers)
