@@ -10,8 +10,8 @@ from ATTACKER import Attacker
 class Defenser:
     def __init__(self,x,y,price,rate,damage,Range,tower_imgs):
         self.imgs = tower_imgs
-        self.x = x #+ self.imgs[0].get_width()//2
-        self.y = y #+ self.imgs[0].get_height()//2
+        self.x = x + self.imgs[0].get_width()//2
+        self.y = y + self.imgs[0].get_height()//2
         self.price = price
         self.rate_of_fire = rate
         self.damage = damage
