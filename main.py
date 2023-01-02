@@ -65,6 +65,8 @@ class Game:
         self.pausetime = 0
         self.curtime  = time.time() -self.start_time - self.pausetime
         self.life_font = pygame.font.SysFont('comicsans', 20)
+        self.title_font = pygame.font.SysFont('Comicsans', 60)
+        self.hint_font = pygame.font.SysFont('Comicsans', 30)
         self.moving_obj = None
         self.shopmenu_def = ShopMenu((1100,0), shopbg_img)
         self.shopmenu_def.add_btn(buy_sugar, 'buy_sugar', 90, 25)
@@ -268,16 +270,42 @@ class pvpGame(Game):
 
                 if self.lifes_def <= 0:
                     print('Attacker Wins!!')   #待改(加結束畫面)
-                    endscene = Endscene(self.win, 'Attacker')
-                    endscene.run()
-                    del endscene
+                    
+                    wait = True
+                    while wait:
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                wait = False
+
+                            if event.type == pygame.KEYDOWN:
+                                if event.key == pygame.K_SPACE:
+                                    wait = False
+                            
+                        text = self.title_font.render(f'Attacker Wins!!', 1, (255,255,255))
+                        self.win.blit(text, (self.width//2 - text.get_width()//2, self.height//2 - text.get_height()//2))
+                        text2 = self.hint_font.render('Press SPACE to continue.', 1, (255,255,255))
+                        self.win.blit(text2, (self.width//2 - text2.get_width()//2, 450))
+                        pygame.display.update()
                     run = False
 
                 if time.time() - self.start_time - self.pausetime >= 300:
                     print('Defenser Wins!!')
-                    endscene = Endscene(self.win, 'Defenser')
-                    endscene.run()
-                    del endscene
+                    wait = True
+                    while wait:
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                wait = False
+
+                            if event.type == pygame.KEYDOWN:
+                                if event.key == pygame.K_SPACE:
+                                    wait = False
+                            
+                        text = self.title_font.render(f'Attacker Wins!!', 1, (255,255,255))
+                        self.win.blit(text, (self.width//2 - text.get_width()//2, self.height//2 - text.get_height()//2))
+                        text2 = self.hint_font.render('Press SPACE to continue.', 1, (255,255,255))
+                        self.win.blit(text2, (self.width//2 - text2.get_width()//2, 450))
+                        pygame.display.update()
+                    
                     run = False    
 
             self.tick_count += 1
@@ -429,16 +457,40 @@ class pveGame(Game):
 
                 if self.lifes_def <= 0:
                     print('You Lose')   #待改(加結束畫面)
-                    endscene = PveEndscene(self.win, '')
-                    endscene.run()
-                    del endscene
+                    wait = True
+                    while wait:
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                wait = False
+
+                            if event.type == pygame.KEYDOWN:
+                                if event.key == pygame.K_SPACE:
+                                    wait = False
+                            
+                        text = self.title_font.render(f'You Lose!!', 1, (255,255,255))
+                        self.win.blit(text, (self.width//2 - text.get_width()//2, self.height//2 - text.get_height()//2))
+                        text2 = self.hint_font.render('Press SPACE to continue.', 1, (255,255,255))
+                        self.win.blit(text2, (self.width//2 - text2.get_width()//2, 450))
+                        pygame.display.update()
                     run = False
 
                 if time.time() - self.start_time - self.pausetime >= 600:
                     print('Defenser Wins!!')
-                    endscene = Endscene(self.win, '')
-                    endscene.run()
-                    del endscene
+                    wait = True
+                    while wait:
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                wait = False
+
+                            if event.type == pygame.KEYDOWN:
+                                if event.key == pygame.K_SPACE:
+                                    wait = False
+                            
+                        text = self.title_font.render(f'Defenser Wins!!', 1, (255,255,255))
+                        self.win.blit(text, (self.width//2 - text.get_width()//2, self.height//2 - text.get_height()//2))
+                        text2 = self.hint_font.render('Press SPACE to continue.', 1, (255,255,255))
+                        self.win.blit(text2, (self.width//2 - text2.get_width()//2, 450))
+                        pygame.display.update()
                     run = False    
 
             self.tick_count += 1
