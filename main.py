@@ -414,7 +414,7 @@ class pveGame(Game):
                         to_del.append(atk)
                 
                 for d in to_del:
-                    self.lifes_def -= d.damage
+                    self.lifes_def -= d.power
                     self.attackers.remove(d)
                 
                 for defenser in self.defensers:
