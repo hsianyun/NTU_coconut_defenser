@@ -33,14 +33,14 @@ class Defenser:
             for attacker in attackers:    #攻擊目標判定
                 x = attacker.x
                 y = attacker.y
-                dis = math.sqrt((self.x - attacker.imgs[0].get_width()/2 - x)**2 + (self.y - attacker.imgs[0].get_height()/2 - y)**2)
+                dis = math.sqrt((self.x - attacker.imgs[0].get_width()//2 - x)**2 + (self.y - attacker.imgs[0].get_height()//2 - y)**2)
                 if dis < self.range: 
                     if dis < target_dis:
                         target = attacker
                         target_dis = dis
             if target_dis < 10000000:
                 self.attack_mode = 1 
-                if self.damage == 120:
+                if self.damage == 25:
                     Attacker.hit(target,self.damage,attackers)
                     self.explode(target,attackers)
                 else:
@@ -60,8 +60,8 @@ class Defenser:
                 x2 = attacker.x + attacker.imgs[0].get_width()//2
                 y2 = attacker.y + attacker.imgs[0].get_height()//2
                 dis = math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
-                if dis < 1000:
-                    Attacker.hit(attacker,120,attackers)
+                if dis < 250:
+                    Attacker.hit(attacker,25,attackers)
 
     def move(self, pos):
         """
