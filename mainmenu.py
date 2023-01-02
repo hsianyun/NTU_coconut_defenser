@@ -15,12 +15,12 @@ class MainMenu:
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.win = win
         self.mode = 'PvP'
-        self.btn_start = (self.width//2-start_btn.get_width()//2, 475, start_btn.get_width(), start_btn.get_height())
+        self.btn_start = (self.width//2-start_btn.get_width()//2, 495, start_btn.get_width(), start_btn.get_height())
         self.pve_btn_start = 575 - mode_PvE_btn.get_width()
-        self.btn_PvE = (self.pve_btn_start, 375, mode_PvE_btn.get_width(), mode_PvE_btn.get_height())
-        self.btn_PvP = (625, 375, mode_PvP_btn.get_width(), mode_PvP_btn.get_height())
-        self.font = pygame.font.SysFont('Calibri', 50)
-        self.modetext = self.font.render(self.mode, True, (0,0,0))
+        self.btn_PvE = (self.pve_btn_start, 405, mode_PvE_btn.get_width(), mode_PvE_btn.get_height())
+        self.btn_PvP = (625, 405, mode_PvP_btn.get_width(), mode_PvP_btn.get_height())
+        self.font = pygame.font.SysFont('OCR A Extended', 45)
+        self.modetext = self.font.render('Mode: '+self.mode, True, (96,78,52))
 
     def run(self):
         run = True
@@ -48,12 +48,12 @@ class MainMenu:
                     if self.btn_PvE[0] <= x <= self.btn_PvE[0] + self.btn_PvE[2]:
                         if self.btn_PvE[1] <= y <= self.btn_PvE[1] + self.btn_PvE[3]:
                             self.mode = 'PvE'
-                            self.modetext = self.font.render(self.mode, True, (0,0,0))
+                            self.modetext = self.font.render('Mode: '+self.mode, True, (0,0,0))
                     
                     if self.btn_PvP[0] <= x <= self.btn_PvP[0] + self.btn_PvP[2]:
                         if self.btn_PvP[1] <= y <= self.btn_PvP[1] + self.btn_PvP[3]:
                             self.mode = 'PvP'
-                            self.modetext = self.font.render(self.mode, True, (0,0,0))
+                            self.modetext = self.font.render('Mode: '+self.mode, True, (0,0,0))
                 
 
             self.draw()
@@ -62,8 +62,8 @@ class MainMenu:
     
     def draw(self):
         self.win.blit(self.bg,(0,0))
-        self.win.blit(mode_PvE_btn, (self.pve_btn_start,375))
-        self.win.blit(mode_PvP_btn, (625,375))
+        self.win.blit(mode_PvE_btn, (self.pve_btn_start,405))
+        self.win.blit(mode_PvP_btn, (625,405))
         self.win.blit(start_btn, (self.btn_start[0], self.btn_start[1]))
-        self.win.blit(self.modetext, (self.width//2 - self.modetext.get_width()//2, 300))
+        self.win.blit(self.modetext, (self.width//2 - self.modetext.get_width()//2, 335))
         pygame.display.update()

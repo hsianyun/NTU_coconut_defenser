@@ -59,6 +59,9 @@ class Game:
         self.bg = pygame.image.load(os.path.join("game_assets","background-PVP.png"))
         self.bg = pygame.transform.scale(self.bg, resolution)
         self.timer = time.time()    #get present time
+        self.start_time = time.time()
+        self.pausestart_timer = time.time()
+        self.pausetime = 0
         self.life_font = pygame.font.SysFont('comicsans', 20)
         self.moving_obj = None
         self.shopmenu_def = ShopMenu((1100,0), shopbg_img)
@@ -161,7 +164,6 @@ class pvpGame(Game):
         self.shopmenu_atk.add_btn(buy_ambulance, "buy_ambulance", 60, 80)
         self.shopmenu_atk.add_btn(buy_sa, "buy_sa", 60, 6)
         self.money_atk = 0
-        self.start_time = time.time()
         self.bg = pygame.image.load(os.path.join("game_assets","background-PVP.png"))
         self.bg = pygame.transform.scale(self.bg, resolution)
     
@@ -221,6 +223,10 @@ class pvpGame(Game):
                     else:
                         #check if you are pressing pause button
                         if self.pause_btn.click(pos):
+                            if self.isRunning:
+                                self.pausestart_timer = time.time()
+                            else:
+                                self.pausetime += time.time() - self.pausestart_timer
                             self.isRunning = not self.isRunning
                             self.pause_btn.clicked()    #Modify the image of pause button
                         
@@ -254,7 +260,7 @@ class pvpGame(Game):
                     print('Attacker Win!!')   #待改(加結束畫面)
                     run = False
 
-                if time.time() - self.start_time >= 300:
+                if time.time() - self.start_time - self.pausetime >= 300:
                     print('Defenser Win!!')
                     run = False    
 
@@ -376,6 +382,10 @@ class pveGame(Game):
                     else:
                         #check if you are pressing pause button
                         if self.pause_btn.click(pos):
+                            if self.isRunning:
+                                self.pausestart_timer = time.time()
+                            else:
+                                self.pausetime += time.time() - self.pausestart_timer
                             self.isRunning = not self.isRunning
                             self.pause_btn.clicked()    #Modify the image of pause button
                         
@@ -403,6 +413,10 @@ class pveGame(Game):
 
                 if self.lifes_def <= 0:
                     print('You Lose')   #待改(加結束畫面)
+                    run = False
+
+                if time.time() - self.start_time - self.pausetime >= 300:
+                    print('Defenser Win!!')
                     run = False    
 
             self.tick_count += 1
