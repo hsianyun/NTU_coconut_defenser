@@ -184,12 +184,14 @@ class pvpGame(Game):
                 #Add money in rate of $5 per second
                 if self.tick_count % 12 == 0:
                     self.money_def += 1
-                    if self.curtime < 150:
+                    if self.curtime < 100:
                         self.money_atk += 1
-                    elif 150 <= self.curtime < 240:
+                    elif 100 <= self.curtime < 200:
                         self.money_atk += 2
-                    else:
+                    elif 200 <= self.curtime < 250:
                         self.money_atk += 4
+                    else:
+                        self.money_atk += 8
             
             pos = pygame.mouse.get_pos()
             for area in self.grid_area:
