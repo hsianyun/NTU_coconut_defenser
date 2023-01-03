@@ -54,7 +54,7 @@ class Game:
         self.width, self.height = resolution
         self.attackers = []
         self.defensers = []
-        self.lifes_def = 40
+        self.lifes_def = 20
         self.money_def = 25
         self.bg = pygame.image.load(os.path.join("game_assets","background-PVP.png"))
         self.bg = pygame.transform.scale(self.bg, resolution)
@@ -475,7 +475,7 @@ class pveGame(Game):
                         pygame.display.update()
                     run = False
 
-                if time.time() - self.start_time - self.pausetime >= 600:
+                if time.time() - self.start_time - self.pausetime >= 300:
                     print('Defenser Wins!!')
                     wait = True
                     while wait:
