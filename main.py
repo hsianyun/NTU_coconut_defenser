@@ -365,7 +365,7 @@ class pveGame(Game):
     def __init__(self, win, mode):
         super().__init__(win, mode)
         self.wave = 0
-        self.current_wave = waves[self.wave]
+        self.current_wave = waves[self.wave].copy()
         self.wave_timer = time.time()
         self.wave_timer_en = True
         self.bg = pygame.image.load(os.path.join("game_assets","background-PVE.png"))
