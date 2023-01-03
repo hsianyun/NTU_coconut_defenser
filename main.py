@@ -252,6 +252,8 @@ class pvpGame(Game):
                                 self.add_tower(shop_button)
                         
                 if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_ESCAPE:
+                        run = False
                     self.buy_attacker(event.key)
 
             #update the status of every object
@@ -441,6 +443,10 @@ class pveGame(Game):
                             if self.money_def >= cost:
                                 self.money_def -= cost
                                 self.add_tower(shop_button)
+                    
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_ESCAPE:
+                        run = False
             #update the status of every object
             if self.isRunning:
                 to_del = []
