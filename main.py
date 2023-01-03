@@ -76,9 +76,9 @@ class Game:
         self.isRunning = True   #暫停時，仍可購買物品與調整位置
         self.pause_btn = PlayPauseButton(play_btn, pause_btn, (10 ,550))
         self.tick_count = 0
-        self.obstacles = [[0,100,0,420], [1100,1200,0,450], [0,240,480,520], [200,240,80,520],
+        self.obstacles = [[0,100,0,420], [1100,1200,0,450], [0,240,480,520], [180,240,80,520],
                         [200,440,80,120], [400,440,80,280],[400,800,240,280],[760,800,80,280],
-                        [760,1080,80,120],[1040,1080,80,400],[400,1080,360,400],[400,440,360,520],[400,1200,480,520],
+                        [760,1080,80,120],[1040,1080,80,400],[400,1080,340,410],[400,440,360,520],[400,1200,480,520],
                         [0,80,520,600]]
         self.grid_area = [[200,400,120,600], [420,1040,280,360],[760,1040,120,360],[0,1200,520,600]]
     
@@ -365,7 +365,7 @@ class pveGame(Game):
     def __init__(self, win, mode):
         super().__init__(win, mode)
         self.wave = 0
-        self.current_wave = waves[self.wave]
+        self.current_wave = waves[self.wave].copy()
         self.wave_timer = time.time()
         self.wave_timer_en = True
         self.bg = pygame.image.load(os.path.join("game_assets","background-PVE.png"))
