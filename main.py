@@ -531,7 +531,7 @@ class pveGame(Game):
                             pygame.display.update()
                         
                         return False
-                    self.current_wave = waves[self.wave]
+                    self.current_wave = waves[self.wave].copy()
                     self.wave_timer_en = True
                     
 
